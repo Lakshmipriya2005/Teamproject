@@ -26,5 +26,6 @@ public class UserEntity {
 
    
     private String password;
+    private String role = "ADMIN"; 
 
 }

@@ -49,6 +49,7 @@ public class UserService {
         usersecDto.setEmail(dto.getEmail());
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
+        user.setRole("ADMIN");
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
       
        userRepository.save(user);
