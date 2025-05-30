@@ -2,6 +2,10 @@ import { useState } from "react"
 
 export default function AuthPages() {
   const [activeTab, setActiveTab] = useState("login")
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
+  
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -18,20 +22,127 @@ export default function AuthPages() {
     agreeTerms: false
   })
 
-  const handleLoginSubmit = (e) => {
+  // API Configuration
+  const API_BASE_URL = "http://localhost:3001/api" // Replace with your backend URL
+  
+  const handleLoginSubmit = async (e) => {
     e.preventDefault()
-    console.log("Login data:", loginData)
-    // Handle login logic here
+    setIsLoading(true)
+    setError("")
+    setSuccessMessage("")
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: loginData.email,
+          password: loginData.password,
+          rememberMe: loginData.rememberMe
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed')
+      }
+
+      // Handle successful login
+      setSuccessMessage("Login successful! Redirecting...")
+      
+      // Store token if provided
+      if (data.token) {
+        localStorage.setItem('authToken', data.token)
+      }
+      
+      // You can redirect here or handle success as needed
+      console.log("Login successful:", data)
+      
+      // Example: Redirect after 2 seconds
+      setTimeout(() => {
+        // window.location.href = '/dashboard'
+        console.log("Would redirect to dashboard")
+      }, 2000)
+
+    } catch (err) {
+      setError(err.message || 'Login failed. Please try again.')
+      console.error("Login error:", err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const handleSignupSubmit = (e) => {
+  const handleSignupSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
+    setError("")
+    setSuccessMessage("")
+
+    // Client-side validation
     if (signupData.password !== signupData.confirmPassword) {
-      alert("Passwords don't match!")
+      setError("Passwords don't match!")
+      setIsLoading(false)
       return
     }
-    console.log("Signup data:", signupData)
-    // Handle signup logic here
+
+    if (!signupData.agreeTerms) {
+      setError("Please agree to the Terms of Service and Privacy Policy")
+      setIsLoading(false)
+      return
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName: signupData.fullName,
+          email: signupData.email,
+          phone: signupData.phone,
+          address: signupData.address,
+          password: signupData.password
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Signup failed')
+      }
+
+      // Handle successful signup
+      setSuccessMessage("Account created successfully! Please check your email for verification.")
+      
+      // Reset form
+      setSignupData({
+        fullName: "",
+        email: "",
+        phone: "",
+        address: "",
+        password: "",
+        confirmPassword: "",
+        agreeTerms: false
+      })
+      
+      console.log("Signup successful:", data)
+      
+      // Optionally switch to login tab after successful signup
+      setTimeout(() => {
+        setActiveTab("login")
+        setSuccessMessage("")
+      }, 3000)
+
+    } catch (err) {
+      setError(err.message || 'Signup failed. Please try again.')
+      console.error("Signup error:", err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -84,6 +195,22 @@ export default function AuthPages() {
             </button>
           </div>
 
+          {/* Error/Success Messages */}
+          {(error || successMessage) && (
+            <div className={`p-4 m-4 rounded-md ${
+              error ? 'bg-red-50 border border-red-200 text-red-700' : 'bg-green-50 border border-green-200 text-green-700'
+            }`}>
+              <div className="flex items-center">
+                <span className="mr-2">
+                  {error ? '❌' : '✅'}
+                </span>
+                <span className="text-sm font-medium">
+                  {error || successMessage}
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Login Form */}
           {activeTab === "login" && (
             <div className="p-6">
@@ -92,7 +219,7 @@ export default function AuthPages() {
                 <p className="text-gray-600 mt-1">Sign in to access your service dashboard</p>
               </div>
               
-              <form onSubmit={handleLoginSubmit} className="space-y-4">
+              <div className="space-y-4">
                 <div>
                   <label htmlFor="login-email" className="block text-sm font-medium text-gray-700 mb-1">
                     Email
@@ -107,6 +234,7 @@ export default function AuthPages() {
                       value={loginData.email}
                       onChange={(e) => setLoginData({...loginData, email: e.target.value})}
                       required
+                      disabled={isLoading}
                     />
                   </div>
                 </div>
@@ -125,6 +253,7 @@ export default function AuthPages() {
                       value={loginData.password}
                       onChange={(e) => setLoginData({...loginData, password: e.target.value})}
                       required
+                      disabled={isLoading}
                     />
                   </div>
                 </div>
@@ -136,6 +265,7 @@ export default function AuthPages() {
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       checked={loginData.rememberMe}
                       onChange={(e) => setLoginData({...loginData, rememberMe: e.target.checked})}
+                      disabled={isLoading}
                     />
                     <span>Remember me</span>
                   </label>
@@ -145,12 +275,24 @@ export default function AuthPages() {
                 </div>
                 
                 <button
-                  type="submit"
-                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
+                  type="button"
+                  onClick={handleLoginSubmit}
+                  disabled={isLoading}
+                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  Sign In
+                  {isLoading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Signing In...
+                    </>
+                  ) : (
+                    'Sign In'
+                  )}
                 </button>
-              </form>
+              </div>
             </div>
           )}
 
@@ -162,7 +304,7 @@ export default function AuthPages() {
                 <p className="text-gray-600 mt-1">Join StarCoolers for reliable appliance maintenance</p>
               </div>
               
-              <form onSubmit={handleSignupSubmit} className="space-y-4">
+              <div className="space-y-4">
                 <div>
                   <label htmlFor="signup-name" className="block text-sm font-medium text-gray-700 mb-1">
                     Full Name
@@ -177,6 +319,7 @@ export default function AuthPages() {
                       value={signupData.fullName}
                       onChange={(e) => setSignupData({...signupData, fullName: e.target.value})}
                       required
+                      disabled={isLoading}
                     />
                   </div>
                 </div>
@@ -195,6 +338,7 @@ export default function AuthPages() {
                       value={signupData.email}
                       onChange={(e) => setSignupData({...signupData, email: e.target.value})}
                       required
+                      disabled={isLoading}
                     />
                   </div>
                 </div>
@@ -213,11 +357,10 @@ export default function AuthPages() {
                       value={signupData.phone}
                       onChange={(e) => setSignupData({...signupData, phone: e.target.value})}
                       required
+                      disabled={isLoading}
                     />
                   </div>
                 </div>
-                
-                
                 
                 <div>
                   <label htmlFor="signup-password" className="block text-sm font-medium text-gray-700 mb-1">
@@ -233,6 +376,7 @@ export default function AuthPages() {
                       value={signupData.password}
                       onChange={(e) => setSignupData({...signupData, password: e.target.value})}
                       required
+                      disabled={isLoading}
                     />
                   </div>
                 </div>
@@ -251,6 +395,7 @@ export default function AuthPages() {
                       value={signupData.confirmPassword}
                       onChange={(e) => setSignupData({...signupData, confirmPassword: e.target.value})}
                       required
+                      disabled={isLoading}
                     />
                   </div>
                 </div>
@@ -262,6 +407,7 @@ export default function AuthPages() {
                     checked={signupData.agreeTerms}
                     onChange={(e) => setSignupData({...signupData, agreeTerms: e.target.checked})}
                     required
+                    disabled={isLoading}
                   />
                   <label className="text-sm text-gray-600">
                     I agree to the{" "}
@@ -276,12 +422,24 @@ export default function AuthPages() {
                 </div>
                 
                 <button
-                  type="submit"
-                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
+                  type="button"
+                  onClick={handleSignupSubmit}
+                  disabled={isLoading}
+                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  Create Account
+                  {isLoading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Creating Account...
+                    </>
+                  ) : (
+                    'Create Account'
+                  )}
                 </button>
-              </form>
+              </div>
             </div>
           )}
         </div>
