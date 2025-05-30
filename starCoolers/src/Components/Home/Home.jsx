@@ -168,7 +168,7 @@ export default function HomeApplianceServices() {
                 <Tool className="w-8 h-8 text-white" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                ApplianceCare
+                Star Coolers
               </span>
             </div>
 
@@ -624,7 +624,7 @@ export default function HomeApplianceServices() {
                 <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-2 rounded-lg">
                   <Tool className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-xl font-bold">ApplianceCare</span>
+                <span className="text-xl font-bold">Star Coolers</span>
               </div>
               <p className="text-gray-400">
                 Your trusted appliance service partner for all home appliance requirements. Serving customers since
@@ -663,7 +663,7 @@ export default function HomeApplianceServices() {
           </div>
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 ApplianceCare. All rights reserved.</p>
+            <p>&copy; 2025 Star Coolers. All rights reserved.</p>
           </div>
         </div>
       </footer>
