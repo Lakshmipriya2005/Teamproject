@@ -23,18 +23,72 @@ import {
   User,
   ChevronDown,
   GlassWaterIcon,
-  BookMarkedIcon,
-  Book,
-  BookAIcon,
-  BookCheck,
-  BookCheckIcon,
+  
   BookDownIcon,
-  BookHeartIcon,
-  BookXIcon,
-  BookMinus,
-  BookImageIcon,
-  BookPlusIcon,
 } from "lucide-react"
+import AircoolerService from "../services/AircoolerService";
+import FridgeService from "../services/FridgeService";
+import WashingService from "../services/WashingService";
+import ACServicePage from "../services/Acservice";
+
+
+
+export const services = [
+    {
+      icon: <Snowflake className="w-12 h-12" />,
+      title: "Air Conditioning Service",
+      description: "Complete AC maintenance, repair and installation services for residential and commercial units.",
+      features: ["Regular Maintenance", "Repair Services", "New Installation", "24/7 Emergency Support"],
+      color: "from-blue-500 to-cyan-500",
+      route: "/ac-service",
+      component: ACServicePage,
+    },
+    {
+      icon: <Wind className="w-12 h-12" />,
+      title: "Air Cooler Service",
+      description: "Professional air cooler maintenance, repair and installation for optimal cooling efficiency.",
+      features: ["Pad Replacement", "Motor Servicing", "Water System Check", "Complete Overhaul"],
+      color: "from-green-500 to-emerald-500",
+      route: "/cooler-service",
+      component: AircoolerService , // replace with actual component
+    },
+    {
+      icon: <Refrigerator className="w-12 h-12" />,
+      title: "Refrigerator Service",
+      description: "Expert refrigerator repair and maintenance services for all brands and models.",
+      features: ["Cooling Issues", "Compressor Repair", "Door Seal Replacement", "Temperature Control"],
+      color: "from-purple-500 to-pink-500",
+      route: "/fridge-service",
+      component:FridgeService, // replace with actual component
+    },
+    {
+      icon: <Zap className="w-12 h-12" />,
+      title: "Washing Machine Service",
+      description: "Professional washing machine repair and maintenance for front load and top load machines.",
+      features: ["Drum Cleaning", "Motor Repair", "Water Inlet Issues", "Spin Problems"],
+      color: "from-orange-500 to-red-500",
+      route: "/washing-service",
+      component: WashingService,
+    },
+    {
+      icon: <Thermometer className="w-12 h-12" />,
+      title: "HVAC Solutions",
+      description: "Comprehensive heating, ventilation and air conditioning solutions for all environments.",
+      features: ["System Design", "Duct Cleaning", "Filter Replacement", "Energy Optimization"],
+      color: "from-indigo-500 to-purple-500",
+      route: "/hvac-service",
+      component: () => <div>HVAC Service</div>,
+    },
+    {
+     icon: <GlassWaterIcon className="w-12 h-12" />,
+      title: "Auro Water Purifier Repair",
+      description: "Professional repair services for all types of home appliances and electrical equipment.",
+      features: ["Water over flow", "Water leakage", "Low water output", "Noise operation"],
+      color: "from-teal-500 to-green-500",
+      route: "/Auro",
+      component: () => <div>Auro water purifier</div>,
+    },
+  ];
 
 export default function HomeApplianceServices() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -79,62 +133,7 @@ export default function HomeApplianceServices() {
     }
   }, [isUserDropdownOpen, isBookServiceDropdownOpen])
 
-const services = [
-    {
-      icon: <Snowflake className="w-12 h-12" />,
-      title: "Air Conditioning Service",
-      description: "Complete AC maintenance, repair and installation services for residential and commercial units.",
-      features: ["Regular Maintenance", "Repair Services", "New Installation", "24/7 Emergency Support"],
-      color: "from-blue-500 to-cyan-500",
-      route: "/ac-service",
-      //component: Acservice,
-    },
-    {
-      icon: <Wind className="w-12 h-12" />,
-      title: "Air Cooler Service",
-      description: "Professional air cooler maintenance, repair and installation for optimal cooling efficiency.",
-      features: ["Pad Replacement", "Motor Servicing", "Water System Check", "Complete Overhaul"],
-      color: "from-green-500 to-emerald-500",
-      route: "/cooler-service",
-      component: () => <div>Cooler Service</div>, // replace with actual component
-    },
-    {
-      icon: <Refrigerator className="w-12 h-12" />,
-      title: "Refrigerator Service",
-      description: "Expert refrigerator repair and maintenance services for all brands and models.",
-      features: ["Cooling Issues", "Compressor Repair", "Door Seal Replacement", "Temperature Control"],
-      color: "from-purple-500 to-pink-500",
-      route: "/fridge-service",
-      component: () => <div>Fridge Service</div>, // replace with actual component
-    },
-    {
-      icon: <Zap className="w-12 h-12" />,
-      title: "Washing Machine Service",
-      description: "Professional washing machine repair and maintenance for front load and top load machines.",
-      features: ["Drum Cleaning", "Motor Repair", "Water Inlet Issues", "Spin Problems"],
-      color: "from-orange-500 to-red-500",
-      route: "/washing-service",
-      component: () => <div>Washing Machine Service</div>,
-    },
-    {
-      icon: <Thermometer className="w-12 h-12" />,
-      title: "HVAC Solutions",
-      description: "Comprehensive heating, ventilation and air conditioning solutions for all environments.",
-      features: ["System Design", "Duct Cleaning", "Filter Replacement", "Energy Optimization"],
-      color: "from-indigo-500 to-purple-500",
-      route: "/hvac-service",
-      component: () => <div>HVAC Service</div>,
-    },
-    {
-     icon: <GlassWaterIcon className="w-12 h-12" />,
-      title: "Auro Water Purifier Repair",
-      description: "Professional repair services for all types of home appliances and electrical equipment.",
-      features: ["Water over flow", "Water leakage", "Low water output", "Noise operation"],
-      color: "from-teal-500 to-green-500",
-      route: "/Auro",
-      component: () => <div>Auro water purifier</div>,
-    },
-  ];
+
    
   
 
