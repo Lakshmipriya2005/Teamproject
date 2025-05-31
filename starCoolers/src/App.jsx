@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import Page from './Components/Login/LoginPage'
+import Auth from './Components/Login/LoginPage'
 import Home from './Components/Home/Home'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 
 function App() {
@@ -8,8 +9,20 @@ function App() {
 
   return (
     <>
-      {/* <Page/> */}
-      <Home/>
+     <BrowserRouter>
+    
+    <Routes>
+      <Route path="/Login" element={<Auth />} />
+      <Route  path="/"   element={<Home/>} />
+      {/* <Route  path="/Dashboard"   element={<Dashboard/>} /> */}
+      {/* <Route  path="/ResetPassword"   element={<ResetPassword/>} /> */}
+  
+      {/* <Route  path="/About"   element={<About/>} />
+     
+      <Route path='/profile' element={<DefaultProfile/>}/> */}
+    </Routes>
+    
+    </BrowserRouter>
     </>
   )
 }
