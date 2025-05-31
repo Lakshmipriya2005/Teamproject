@@ -1,1 +1,7 @@
 @import "tailwindcss";
+.logo{
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    border-radius: 50%;
+}
