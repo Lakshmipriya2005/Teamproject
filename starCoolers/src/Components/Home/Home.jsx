@@ -21,6 +21,10 @@ import {
   Award,
   User,
   ChevronDown,
+  GlassWaterIcon,
+  StarsIcon,
+  StarOffIcon,
+  StarHalf,
 } from "lucide-react"
 
 export default function HomeApplianceServices() {
@@ -99,10 +103,10 @@ export default function HomeApplianceServices() {
       color: "from-indigo-500 to-purple-500",
     },
     {
-      icon: <Tool className="w-12 h-12" />,
-      title: "General Appliance Repair",
-      description: "Professional repair services for all types of home appliances and electrical equipment.",
-      features: ["Microwave Repair", "Dishwasher Service", "Water Heater", "Small Appliances"],
+      icon: <GlassWaterIcon className="w-12 h-12" />,
+      title: "Auro Water Purifier Repair",
+      description: "Professional repair services for Auro Water Purifier.",
+      features: ["Low water flow", "noisy operation", "water leakage", "Reduced water output"],
       color: "from-teal-500 to-green-500",
     },
   ]
@@ -165,7 +169,7 @@ export default function HomeApplianceServices() {
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
               <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-2 rounded-lg">
-                <Tool className="w-8 h-8 text-white" />
+                <StarHalf className="w-8 h-8 text-white" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 Star Coolers
