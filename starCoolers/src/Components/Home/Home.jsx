@@ -23,6 +23,17 @@ import {
   User,
   ChevronDown,
   GlassWaterIcon,
+  BookMarkedIcon,
+  Book,
+  BookAIcon,
+  BookCheck,
+  BookCheckIcon,
+  BookDownIcon,
+  BookHeartIcon,
+  BookXIcon,
+  BookMinus,
+  BookImageIcon,
+  BookPlusIcon,
 } from "lucide-react"
 
 export default function HomeApplianceServices() {
@@ -76,7 +87,7 @@ const services = [
       features: ["Regular Maintenance", "Repair Services", "New Installation", "24/7 Emergency Support"],
       color: "from-blue-500 to-cyan-500",
       route: "/ac-service",
-      component: Acservice,
+      //component: Acservice,
     },
     {
       icon: <Wind className="w-12 h-12" />,
@@ -250,11 +261,11 @@ const services = [
                       <span>Air Cooler</span>
                     </a>
                     <a
-                      href="#book-air-purifier"
+                      href="#book-water-purifier"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                     >
                       <GlassWaterIcon className="w-5 h-5 text-teal-500" />
-                      <span>Air Purifier</span>
+                      <span>Water Purifier</span>
                     </a>
                   </div>
                 )}
@@ -289,6 +300,13 @@ const services = [
                       <Shield className="w-4 h-4" />
                       <span>Login</span>
                     </Link>
+                    <Link
+                      to="/Login"
+                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                    >
+                      <BookDownIcon className="w-4 h-4" />
+                      <span>Booked Service</span>
+                    </Link>
                    
                   </div>
                 )}
@@ -322,6 +340,13 @@ const services = [
                     >
                       <Shield className="w-4 h-4" />
                       <span>Login</span>
+                    </Link>
+                     <Link
+                      to="/Login"
+                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                    >
+                      <BookDownIcon className="w-4 h-4" />
+                      <span>Booked Service</span>
                     </Link>
                    
                   </div>
