@@ -1,7 +1,7 @@
 
-import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
-
+import {Link} from "react-router-dom"
+import logo from "../../assets/logo.png"
 import {
   Phone,
   Mail,
@@ -22,13 +22,18 @@ import {
   Award,
   User,
   ChevronDown,
-  Component,
+  GlassWaterIcon,
+  
+  BookDownIcon,
 } from "lucide-react"
 import AircoolerService from "../services/AircoolerService";
 import FridgeService from "../services/FridgeService";
 import WashingService from "../services/WashingService";
 import ACServicePage from "../services/Acservice";
- export const services = [
+import { useNavigate } from "react-router-dom"
+
+
+export const services = [
     {
       icon: <Snowflake className="w-12 h-12" />,
       title: "Air Conditioning Service",
@@ -36,7 +41,7 @@ import ACServicePage from "../services/Acservice";
       features: ["Regular Maintenance", "Repair Services", "New Installation", "24/7 Emergency Support"],
       color: "from-blue-500 to-cyan-500",
       route: "/ac-service",
-      component:ACServicePage
+      component: ACServicePage,
     },
     {
       icon: <Wind className="w-12 h-12" />,
@@ -45,7 +50,7 @@ import ACServicePage from "../services/Acservice";
       features: ["Pad Replacement", "Motor Servicing", "Water System Check", "Complete Overhaul"],
       color: "from-green-500 to-emerald-500",
       route: "/cooler-service",
-      component:AircoolerService // replace with actual component
+      component: AircoolerService , // replace with actual component
     },
     {
       icon: <Refrigerator className="w-12 h-12" />,
@@ -54,7 +59,7 @@ import ACServicePage from "../services/Acservice";
       features: ["Cooling Issues", "Compressor Repair", "Door Seal Replacement", "Temperature Control"],
       color: "from-purple-500 to-pink-500",
       route: "/fridge-service",
-      component: FridgeService // replace with actual component
+      component:FridgeService, // replace with actual component
     },
     {
       icon: <Zap className="w-12 h-12" />,
@@ -63,7 +68,7 @@ import ACServicePage from "../services/Acservice";
       features: ["Drum Cleaning", "Motor Repair", "Water Inlet Issues", "Spin Problems"],
       color: "from-orange-500 to-red-500",
       route: "/washing-service",
-      component: WashingService
+      component: WashingService,
     },
     {
       icon: <Thermometer className="w-12 h-12" />,
@@ -75,19 +80,20 @@ import ACServicePage from "../services/Acservice";
       component: () => <div>HVAC Service</div>,
     },
     {
-      icon: <Tool className="w-12 h-12" />,
-      title: "General Appliance Repair",
+     icon: <GlassWaterIcon className="w-12 h-12" />,
+      title: "Auro Water Purifier Repair",
       description: "Professional repair services for all types of home appliances and electrical equipment.",
-      features: ["Microwave Repair", "Dishwasher Service", "Water Heater", "Small Appliances"],
+      features: ["Water over flow", "Water leakage", "Low water output", "Noise operation"],
       color: "from-teal-500 to-green-500",
-      route: "/general-repair",
-      component: () => <div>General Repair</div>,
+      route: "/Auro",
+      component: () => <div>Auro water purifier</div>,
     },
   ];
 
 export default function HomeApplianceServices() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false)
+  const [isBookServiceDropdownOpen, setIsBookServiceDropdownOpen] = useState(false)
   const [isVisible, setIsVisible] = useState({})
   const navigate = useNavigate()
 
@@ -114,8 +120,11 @@ export default function HomeApplianceServices() {
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isUserDropdownOpen && !event.target.closest(".relative")) {
+      if (isUserDropdownOpen && !event.target.closest(".user-dropdown")) {
         setIsUserDropdownOpen(false)
+      }
+      if (isBookServiceDropdownOpen && !event.target.closest(".book-service-dropdown")) {
+        setIsBookServiceDropdownOpen(false)
       }
     }
 
@@ -123,9 +132,11 @@ export default function HomeApplianceServices() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [isUserDropdownOpen])
+  }, [isUserDropdownOpen, isBookServiceDropdownOpen])
 
- 
+
+   
+  
 
   const benefits = [
     {
@@ -184,11 +195,11 @@ export default function HomeApplianceServices() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
-              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-2 rounded-lg">
-                <Tool className="w-8 h-8 text-white" />
+              <div >
+                <img src={logo}  className="logo" alt="logo" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                ApplianceCare
+                Star Coolers
               </span>
             </div>
 
@@ -206,12 +217,62 @@ export default function HomeApplianceServices() {
               <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
                 Contact
               </a>
-              <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300">
-                Book Service
-              </button>
+              {/* Book Service Dropdown */}
+              <div className="relative book-service-dropdown">
+                <button
+                  onClick={() => setIsBookServiceDropdownOpen(!isBookServiceDropdownOpen)}
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center space-x-1"
+                >
+                  <span>Book Service</span>
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${isBookServiceDropdownOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+
+                {/* Book Service Dropdown Menu */}
+                {isBookServiceDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
+                    <Link
+                      to="/ac-service"
+                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
+                    >
+                      <Snowflake className="w-5 h-5 text-blue-500" />
+                      <span>Air Conditioning</span>
+                    </Link>
+                    <a
+                      href="#book-washing-machine"
+                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
+                    >
+                      <Zap className="w-5 h-5 text-purple-500" />
+                      <span>Washing Machine</span>
+                    </a>
+                    <a
+                      href="#book-fridge"
+                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
+                    >
+                      <Refrigerator className="w-5 h-5 text-green-500" />
+                      <span>Refrigerator</span>
+                    </a>
+                    <a
+                      href="#book-air-cooler"
+                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
+                    >
+                      <Wind className="w-5 h-5 text-cyan-500" />
+                      <span>Air Cooler</span>
+                    </a>
+                    <a
+                      href="#book-water-purifier"
+                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
+                    >
+                      <GlassWaterIcon className="w-5 h-5 text-teal-500" />
+                      <span>Water Purifier</span>
+                    </a>
+                  </div>
+                )}
+              </div>
 
               {/* User Dropdown */}
-              <div className="relative">
+              <div className="relative user-dropdown">
                 <button
                   onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
                   className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors p-2 rounded-full hover:bg-gray-100"
@@ -225,28 +286,28 @@ export default function HomeApplianceServices() {
                 {/* Dropdown Menu */}
                 {isUserDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
-                    <a
-                      href="#profile"
+                    <Link
+                      to="/Profile"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
                     >
                       <User className="w-4 h-4" />
                       <span>Profile</span>
-                    </a>
-                    <a
-                      href="#login"
+                    </Link>
+                    <Link
+                      to="/Login"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
                     >
                       <Shield className="w-4 h-4" />
                       <span>Login</span>
-                    </a>
-                    <hr className="my-2 border-gray-100" />
-                    <a
-                      href="#settings"
+                    </Link>
+                    <Link
+                      to="/Login"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
                     >
-                      <Tool className="w-4 h-4" />
-                      <span>Settings</span>
-                    </a>
+                      <BookDownIcon className="w-4 h-4" />
+                      <span>Booked Service</span>
+                    </Link>
+                   
                   </div>
                 )}
               </div>
@@ -266,28 +327,28 @@ export default function HomeApplianceServices() {
                 {/* Mobile Dropdown Menu */}
                 {isUserDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
-                    <a
-                      href="#profile"
+                   <Link
+                      to="/Profile"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
                     >
                       <User className="w-4 h-4" />
                       <span>Profile</span>
-                    </a>
-                    <a
-                      href="#login"
+                    </Link>
+                    <Link
+                      to="/Login"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
                     >
                       <Shield className="w-4 h-4" />
                       <span>Login</span>
-                    </a>
-                    <hr className="my-2 border-gray-100" />
-                    <a
-                      href="#settings"
+                    </Link>
+                     <Link
+                      to="/Login"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
                     >
-                      <Tool className="w-4 h-4" />
-                      <span>Settings</span>
-                    </a>
+                      <BookDownIcon className="w-4 h-4" />
+                      <span>Booked Service</span>
+                    </Link>
+                   
                   </div>
                 )}
               </div>
@@ -314,9 +375,59 @@ export default function HomeApplianceServices() {
                 <a href="#contact" className="block text-gray-700 hover:text-blue-600 font-medium">
                   Contact
                 </a>
-                <button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-full">
-                  Book Service
-                </button>
+                {/* Book Service Dropdown for Mobile */}
+                <div className="relative book-service-dropdown">
+                  <button
+                    onClick={() => setIsBookServiceDropdownOpen(!isBookServiceDropdownOpen)}
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-full flex items-center justify-center space-x-1"
+                  >
+                    <span>Book Service</span>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${isBookServiceDropdownOpen ? "rotate-180" : ""}`}
+                    />
+                  </button>
+
+                  {/* Mobile Book Service Dropdown Menu */}
+                  {isBookServiceDropdownOpen && (
+                    <div className="mt-2 w-full bg-white rounded-xl shadow-lg border border-gray-100 py-2">
+                      <Link
+                        to="ac-service"
+                        className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
+                      >
+                        <Snowflake className="w-5 h-5 text-blue-500" />
+                        <span>Air Conditioning</span>
+                      </Link>
+                      <a
+                        href="#book-washing-machine"
+                        className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
+                      >
+                        <Zap className="w-5 h-5 text-purple-500" />
+                        <span>Washing Machine</span>
+                      </a>
+                      <a
+                        href="#book-fridge"
+                        className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
+                      >
+                        <Refrigerator className="w-5 h-5 text-green-500" />
+                        <span>Refrigerator</span>
+                      </a>
+                      <a
+                        href="#book-air-cooler"
+                        className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
+                      >
+                        <Wind className="w-5 h-5 text-cyan-500" />
+                        <span>Air Cooler</span>
+                      </a>
+                      <a
+                        href="#book-air-purifier"
+                        className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
+                      >
+                        <GlassWaterIcon className="w-5 h-5 text-teal-500" />
+                        <span>Air Purifier</span>
+                      </a>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           )}
@@ -407,7 +518,7 @@ export default function HomeApplianceServices() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">Why Choose ApplianceCare?</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">Why Choose Star Coolers?</h2>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
               We are the leading home appliance service provider with years of experience and thousands of satisfied
               customers.
@@ -505,10 +616,10 @@ export default function HomeApplianceServices() {
                   ))}
                 </div>
 
-                <button className="w-full bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 font-semibold py-3 px-6 rounded-xl hover:from-blue-50 hover:to-indigo-50 hover:text-blue-600 transition-all duration-300 flex items-center justify-center"
+                 <button className="w-full bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 font-semibold py-3 px-6 rounded-xl hover:from-blue-50 hover:to-indigo-50 hover:text-blue-600 transition-all duration-300 flex items-center justify-center"
                
                   onClick={() => navigate(service.route)}>
-                  Learn more 
+                    Learn more 
                   <ChevronRight className="w-4 h-4 ml-1" />
                 </button>
               </div>
@@ -643,10 +754,10 @@ export default function HomeApplianceServices() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-2 rounded-lg">
-                  <Tool className="w-6 h-6 text-white" />
+                <div >
+                  <img src={logo} className="logo" alt="logo" />
                 </div>
-                <span className="text-xl font-bold">ApplianceCare</span>
+                <span className="text-xl font-bold">Star Coolers</span>
               </div>
               <p className="text-gray-400">
                 Your trusted appliance service partner for all home appliance requirements. Serving customers since
@@ -660,7 +771,7 @@ export default function HomeApplianceServices() {
                 <li>Air Conditioning Service</li>
                 <li>Refrigerator Repair</li>
                 <li>Washing Machine Service</li>
-                <li>General Appliance Repair</li>
+                <li>Auro Water Purifier Service</li>
               </ul>
             </div>
 
@@ -685,7 +796,7 @@ export default function HomeApplianceServices() {
           </div>
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 ApplianceCare. All rights reserved.</p>
+            <p>&copy; 2025 Star Coolers. All rights reserved.</p>
           </div>
         </div>
       </footer>
