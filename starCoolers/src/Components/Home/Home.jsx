@@ -261,13 +261,13 @@ export default function HomeApplianceServices() {
                       <Wind className="w-5 h-5 text-cyan-500" />
                       <span>Air Cooler</span>
                     </a>
-                    <a
-                      href="#book-water-purifier"
+                    <Link
+                      to="/Auro"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                     >
                       <GlassWaterIcon className="w-5 h-5 text-teal-500" />
                       <span>Water Purifier</span>
-                    </a>
+                    </Link>
                   </div>
                 )}
               </div>
