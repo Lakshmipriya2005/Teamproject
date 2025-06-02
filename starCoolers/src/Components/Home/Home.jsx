@@ -31,6 +31,7 @@ import FridgeService from "../services/FridgeService";
 import WashingService from "../services/WashingService";
 import ACServicePage from "../services/Acservice";
 import { useNavigate } from "react-router-dom"
+import Waterpurifier from "../services/Waterpurifier";
 
 
 export const services = [
@@ -86,7 +87,7 @@ export const services = [
       features: ["Water over flow", "Water leakage", "Low water output", "Noise operation"],
       color: "from-teal-500 to-green-500",
       route: "/Auro",
-      component: () => <div>Auro water purifier</div>,
+      component: Waterpurifier,
     },
   ];
 
