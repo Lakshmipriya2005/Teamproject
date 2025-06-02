@@ -6,6 +6,7 @@ import WashingService from './Components/services/WashingService';
 import Auth from './Components/Login/LoginPage'
 import React from 'react';
 import AircoolerService from './Components/services/AircoolerService';
+import Waterpurifier from './Components/services/Waterpurifier';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/fridge-service" element={<FridgeService />} />
       <Route path="/ac-service" element={<ACServicePage/>} />
       <Route path="/aircooler-service" element={<AircoolerService />} />
+      <Route path="/Auro" element={<Waterpurifier/>}/>
       </Routes>
     </BrowserRouter>
   );
