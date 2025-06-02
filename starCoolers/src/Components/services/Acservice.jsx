@@ -72,7 +72,7 @@ export default function ACServicePage() {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+        <div className="absolute inset-0 bg-blue bg-opacity-20"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -97,8 +97,8 @@ export default function ACServicePage() {
               {features.map((feature, index) => (
                 <div key={index} className="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-xl border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
                   <div className="text-blue-300 mb-3">{feature.icon}</div>
-                  <h3 className="font-semibold mb-2">{feature.title}</h3>  
-                  <p className="text-blue-100 text-sm">{feature.desc}</p>
+                  <h3 className="font-semibold text-blue-300 mb-2">{feature.title}</h3>  
+                  <p className="text-blue-300 text-sm">{feature.desc}</p>
                 </div>
               ))}
             </div>
@@ -420,8 +420,8 @@ export default function ACServicePage() {
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-xl border border-white border-opacity-20">
                 <Phone className="w-12 h-12 text-blue-300 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2">Call Now</h3>
-                <p className="text-blue-100 mb-4">Speak directly with our experts</p>
+                <h3 className="text-2xl text-blue-300 font-bold mb-2">Call Now</h3>
+                <p className="text-blue-300  mb-4">Speak directly with our experts</p>
                 <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 w-full">
                   (555) 123-4567
                 </button>
@@ -429,9 +429,9 @@ export default function ACServicePage() {
               
               <div className="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-xl border border-white border-opacity-20">
                 <Clock className="w-12 h-12 text-blue-300 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2">Book Online</h3>
-                <p className="text-blue-100 mb-4">Schedule at your convenience</p>
-                <button className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105 w-full">
+                <h3 className="text-2xl text-blue-300 font-bold mb-2">Book Online</h3>
+                <p className="text-blue-300 mb-4">Schedule at your convenience</p>
+                <button className="border-2 border-white text-blue-300 px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105 w-full">
                   Schedule Now
                 </button>
               </div>
