@@ -382,7 +382,7 @@ export default function WaterPurifierServicePage() {
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-2xl font-bold text-blue-600">{card.price}</span>
                   </div>
-                  <button className="bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 w-full">
+                  <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300">
                     Book Now
                   </button>
                 </div>
@@ -476,7 +476,7 @@ export default function WaterPurifierServicePage() {
                     </div>
                     <div className="text-right">
                       <div className="text-xl font-bold text-orange-600 mb-2">{service.price}</div>
-                      <button className="bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 transition-all duration-300 shadow-sm">
+                      <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm">
                         Book Now
                       </button>
                     </div>
@@ -547,7 +547,7 @@ export default function WaterPurifierServicePage() {
                     </div>
                     <div className="text-right">
                       <div className="text-xl font-bold text-blue-600 mb-2">{service.price}</div>
-                      <button className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 shadow-sm">
+                      <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm">
                         Book Now
                       </button>
                     </div>
