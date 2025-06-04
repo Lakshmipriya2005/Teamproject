@@ -290,7 +290,7 @@ export default function WaterPurifierServicePage() {
       </section>
 
       {/* Service Cards Section - Similar to the AC service cards in the image */}
-      <section className="py-16 bg-gray-50">
+      {/* <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12">Popular Repair Services</h2>
 
@@ -323,7 +323,7 @@ export default function WaterPurifierServicePage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Maintenance & Service Cards Section */}
       <section className="py-16 bg-white">
@@ -383,7 +383,7 @@ export default function WaterPurifierServicePage() {
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-2xl font-bold text-blue-600">{card.price}</span>
                   </div>
-                  <button className="bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 w-full">
+                  <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300">
                     Book Now
                   </button>
                 </div>
@@ -477,7 +477,7 @@ export default function WaterPurifierServicePage() {
                     </div>
                     <div className="text-right">
                       <div className="text-xl font-bold text-orange-600 mb-2">{service.price}</div>
-                      <button className="bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 transition-all duration-300 shadow-sm">
+                      <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm">
                         Book Now
                       </button>
                     </div>
@@ -548,7 +548,7 @@ export default function WaterPurifierServicePage() {
                     </div>
                     <div className="text-right">
                       <div className="text-xl font-bold text-blue-600 mb-2">{service.price}</div>
-                      <button className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 shadow-sm">
+                      <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm">
                         Book Now
                       </button>
                     </div>

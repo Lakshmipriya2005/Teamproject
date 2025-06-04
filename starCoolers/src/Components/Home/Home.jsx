@@ -247,20 +247,20 @@ export default function HomeApplianceServices() {
                       <Zap className="w-5 h-5 text-purple-500" />
                       <span>Washing Machine</span>
                     </a>
-                    <a
-                      href="#book-fridge"
+                    <Link
+                      to="AircoolerService"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                     >
                       <Refrigerator className="w-5 h-5 text-green-500" />
                       <span>Refrigerator</span>
-                    </a>
-                    <a
-                      href="#book-air-cooler"
+                    </Link>
+                    <Link
+                      to="aircooler-service"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                     >
                       <Wind className="w-5 h-5 text-cyan-500" />
                       <span>Air Cooler</span>
-                    </a>
+                    </Link>
                     <Link
                       to="/Auro"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
