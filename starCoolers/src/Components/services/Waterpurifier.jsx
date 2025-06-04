@@ -145,6 +145,7 @@ export default function WaterPurifierServicePage() {
       image: "/placeholder.svg?height=150&width=250",
     },
   ]
+  
 
   const capacityMultipliers = {
     "5L": 1.0,
