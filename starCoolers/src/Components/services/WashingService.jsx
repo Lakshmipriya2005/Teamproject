@@ -13,9 +13,10 @@ import {
   RotateCcw,
   Settings2,
 } from "lucide-react"
-
+import { useNavigate } from "react-router-dom";
 export default function WashingService() {
   const [activeTab, setActiveTab] = useState(0)
+  const navigate = useNavigate()
 
   const services = [
     {
@@ -331,7 +332,18 @@ const washingMachineBrands = [
                   <p className="text-sm text-gray-500 mb-4">{machine.duration}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-xl font-bold text-blue-600">{machine.price}</span>
-                    <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300">
+                    <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300"
+                    onClick={() =>
+    navigate("/book", {
+      state: {
+        serviceName: machine.title,
+        price: machine.price,
+      },
+    })
+  }
+
+                    
+                    >
                       Book Now
                     </button>
                   </div>
@@ -378,7 +390,17 @@ const washingMachineBrands = [
                     </div>
                     <div className="text-right">
                       <div className="text-xl font-bold text-orange-600 mb-2">{issue.price}</div>
-                      <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm">
+                      <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm"
+                      onClick={() =>
+    navigate("/book", {
+      state: {
+        serviceName: issue.title,
+        price: issue.price,
+      },
+    })
+  }
+ 
+                      >
                         Book Now
                       </button>
                     </div>
@@ -418,7 +440,17 @@ const washingMachineBrands = [
                     </div>
                     <div className="text-right">
                       <div className="text-2xl font-bold text-green-600 mb-3">{service.price}</div>
-                      <button className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-green-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-md">
+                      <button className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-green-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-md"
+                      onClick={() =>
+    navigate("/book", {
+      state: {
+        serviceName: service.title,
+        price: service.price,
+      },
+    })
+  }
+  >
+ 
                         Book Now
                       </button>
                     </div>
@@ -488,9 +520,20 @@ const washingMachineBrands = [
                   <span className="text-sm text-gray-600">{product.rating} ({product.reviews})</span>
                 </div>
 
-                <button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md">
-                  View Details
-                </button>
+                <button
+  className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md"
+  onClick={() =>
+    navigate("/buy-now", {
+      state: {
+        serviceName: `${product.brand} (${product.activeType})`,
+        price: product.prices[product.activeType], // 👈 this fetches the exact price
+      },
+    })
+  }
+>
+  Buy Now
+</button>
+
               </div>
             </div>
           ))}

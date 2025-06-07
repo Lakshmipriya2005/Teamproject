@@ -12,4 +12,8 @@ public class UserDto {
     private String username;
     private String password;
     private String email;
+    public String getAddress() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAddress'");
+    }
 }
