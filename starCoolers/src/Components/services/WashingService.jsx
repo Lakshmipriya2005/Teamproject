@@ -338,6 +338,7 @@ const washingMachineBrands = [
       state: {
         serviceName: machine.title,
         price: machine.price,
+        serviceType: "washing machine",
       },
     })
   }
@@ -396,6 +397,7 @@ const washingMachineBrands = [
       state: {
         serviceName: issue.title,
         price: issue.price,
+        serviceType: "washing machine",
       },
     })
   }
@@ -446,6 +448,8 @@ const washingMachineBrands = [
       state: {
         serviceName: service.title,
         price: service.price,
+        serviceType: "washing machine",
+
       },
     })
   }
@@ -527,6 +531,7 @@ const washingMachineBrands = [
       state: {
         serviceName: `${product.brand} (${product.activeType})`,
         price: product.prices[product.activeType], // 👈 this fetches the exact price
+        serviceType: "washing machine sale",
       },
     })
   }

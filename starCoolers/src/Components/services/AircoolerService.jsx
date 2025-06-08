@@ -349,6 +349,7 @@ export default function AirCoolerServicePage() {
       state: {
         serviceName: card.title,
         price: card.price,
+        serviceType:"Air Cooler Service",
       },
     })
   }
@@ -453,6 +454,7 @@ export default function AirCoolerServicePage() {
       state: {
         serviceName: service.name,
         price: service.price,
+         serviceType:"Air Cooler Service",
       },
     })
   }
@@ -609,11 +611,12 @@ export default function AirCoolerServicePage() {
       state: {
         serviceName:brand.name,
         price:brand.basePrice,
+        serviceType:"Air Cooler sale",
       },
     })
   }
      
-                      
+                       
                       >
                         Buy Now
                       </button>

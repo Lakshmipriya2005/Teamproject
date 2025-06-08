@@ -332,6 +332,7 @@ onClick={() =>
       state: {
         serviceName: card.title,
         price: card.price,
+        serviceType: "Ac service",
       },
     })
   }
@@ -433,6 +434,7 @@ onClick={() =>
       state: {
         serviceName: service.name,
         price: service.price,
+        serviceType: "Ac service",
       },
     })
   }
@@ -584,6 +586,7 @@ onClick={() =>
       state: {
         serviceName:brand.name,
         price:brand.basePrice,
+        serviceType: "AC Sale",
       },
     })
   }

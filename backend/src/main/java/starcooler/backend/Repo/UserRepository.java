@@ -20,7 +20,7 @@ import starcooler.backend.Entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT * FROM usersdetails WHERE BINARY username = :username", nativeQuery = true)
     UserEntity findByUsername(@Param("username") String username);
-    
+     Optional<UserEntity> findById(Long id);
     Optional<UserEntity> findByEmail(String email);
 
 

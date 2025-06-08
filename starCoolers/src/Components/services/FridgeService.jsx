@@ -238,6 +238,7 @@ export default function FridgeService() {
       state: {
         serviceName: service.name,
         price: service.price,
+        serviceType:"Refrigerator",
       },
     })
   }
@@ -317,6 +318,7 @@ export default function FridgeService() {
       state: {
         serviceName: service.name,
         price: service.price,
+        serviceType:"Refrigerator",
       },
     })
   }
@@ -412,6 +414,7 @@ export default function FridgeService() {
       state: {
         serviceName:brand.name,
         price:brand.basePrice,
+        serviceType: "Refrigerator Purchase",
       },
     })
   }

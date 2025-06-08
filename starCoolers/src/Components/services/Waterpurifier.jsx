@@ -389,6 +389,7 @@ const navigate = useNavigate()
       state: {
         serviceName: card.title,
         price: card.price,
+        serviceType: "water purifier ",
       },
     })
   }
@@ -494,6 +495,7 @@ const navigate = useNavigate()
       state: {
         serviceName: service.name,
         price: service.price,
+         serviceType: "water purifier",
       },
     })
   }
@@ -577,6 +579,7 @@ const navigate = useNavigate()
       state: {
         serviceName: service.name,
         price: service.price,
+         serviceType: "water purifier",
       },
     })
   }
@@ -653,6 +656,7 @@ const navigate = useNavigate()
       state: {
         serviceName:brand.name,
         price:brand.basePrice,
+        serviceType:"Water Purifier sale",
       },
     })
   }
