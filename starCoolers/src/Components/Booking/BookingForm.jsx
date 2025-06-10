@@ -4,7 +4,9 @@ import axios from "axios"; // Make sure axios is installed
 
 const BookingForm = () => {
   const location = useLocation();
-  const { serviceName, price } = location.state || {};
+  const { serviceName, price,serviceType } = location.state || {};
+  console.log(serviceType);
+ 
 
   const [formData, setFormData] = useState({
     name: "",
@@ -27,7 +29,7 @@ const BookingForm = () => {
       ...formData,
       service: serviceName,
       amount: price,
-      //servicetype:serviceType,
+      servicetype:serviceType,
     };
 
     try {
