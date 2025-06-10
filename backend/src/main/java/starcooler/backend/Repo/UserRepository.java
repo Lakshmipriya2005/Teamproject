@@ -20,17 +20,14 @@ import starcooler.backend.Entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT * FROM usersdetails WHERE BINARY username = :username", nativeQuery = true)
     UserEntity findByUsername(@Param("username") String username);
-    
+     Optional<UserEntity> findById(Long id);
     Optional<UserEntity> findByEmail(String email);
 
 
     @Query("SELECT u.id FROM UserEntity  u WHERE u.username = :username")
-    int getIdByName(@Param("username") String username);
-    //Optional<UserProfile> findByRefId(Long userId);
+    int getIdByName(String username);
    
-// @Modifying
-// @Query("UPDATE User u SET u.loggedIn = true WHERE u.username = :username")
-// void updateUserLoggedInStatus(@Param("username") String username);
+   
 
 
 }

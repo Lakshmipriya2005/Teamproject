@@ -1,19 +1,20 @@
 import { useState } from "react"
+import axios from "axios"
 
 export default function AuthPages() {
   const [activeTab, setActiveTab] = useState("login")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const [successMessage, setSuccessMessage] = useState("")
-  
+
   const [loginData, setLoginData] = useState({
-    email: "",
+    username: "",
     password: "",
     rememberMe: false
   })
 
   const [signupData, setSignupData] = useState({
-    fullName: "",
+    username: "",
     email: "",
     phone: "",
     address: "",
@@ -22,54 +23,47 @@ export default function AuthPages() {
     agreeTerms: false
   })
 
-  // API Configuration
-  const API_BASE_URL = "http://localhost:3001/api" // Replace with your backend URL
-  
   const handleLoginSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
     setError("")
     setSuccessMessage("")
-    
+
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
-        method: 'POST',
+      const response = await axios.post('http://localhost:8080/auth/login', {
+        username: loginData.username,
+        password: loginData.password,
+        rememberMe: loginData.rememberMe
+      }, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          email: loginData.email,
-          password: loginData.password,
-          rememberMe: loginData.rememberMe
-        }),
+        withCredentials: true // if backend uses cookies
       })
 
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed')
-      }
-
-      // Handle successful login
+      // Success
       setSuccessMessage("Login successful! Redirecting...")
-      
-      // Store token if provided
-      if (data.token) {
-        localStorage.setItem('authToken', data.token)
+
+      if (response.data.token) {
+        localStorage.setItem('authToken', response.data.token)
       }
-      
-      // You can redirect here or handle success as needed
-      console.log("Login successful:", data)
-      
-      // Example: Redirect after 2 seconds
+
+      console.log("Login successful:", response.data)
+
       setTimeout(() => {
-        // window.location.href = '/dashboard'
+        // window.location.href = "/dashboard"
         console.log("Would redirect to dashboard")
       }, 2000)
 
     } catch (err) {
-      setError(err.message || 'Login failed. Please try again.')
       console.error("Login error:", err)
+      if (err.response) {
+        setError(err.response.data.message || `Login failed (HTTP ${err.response.status})`)
+      } else if (err.request) {
+        setError("No response from server. Please check your connection.")
+      } else {
+        setError("Login failed. " + err.message)
+      }
     } finally {
       setIsLoading(false)
     }
@@ -81,7 +75,6 @@ export default function AuthPages() {
     setError("")
     setSuccessMessage("")
 
-    // Client-side validation
     if (signupData.password !== signupData.confirmPassword) {
       setError("Passwords don't match!")
       setIsLoading(false)
@@ -95,30 +88,21 @@ export default function AuthPages() {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/signup`, {
-        method: 'POST',
+      const response = await axios.post('http://localhost:8080/auth/signup', {
+        username: signupData.username,
+        email: signupData.email,
+        phone: signupData.phone,
+        address: signupData.address,
+        password: signupData.password
+      }, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          fullName: signupData.fullName,
-          email: signupData.email,
-          phone: signupData.phone,
-          address: signupData.address,
-          password: signupData.password
-        }),
+        withCredentials: true
       })
 
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Signup failed')
-      }
-
-      // Handle successful signup
+      // Success
       setSuccessMessage("Account created successfully! Please check your email for verification.")
-      
-      // Reset form
       setSignupData({
         fullName: "",
         email: "",
@@ -128,22 +112,29 @@ export default function AuthPages() {
         confirmPassword: "",
         agreeTerms: false
       })
-      
-      console.log("Signup successful:", data)
-      
-      // Optionally switch to login tab after successful signup
+
+      console.log("Signup successful:", response.data)
+
       setTimeout(() => {
         setActiveTab("login")
         setSuccessMessage("")
       }, 3000)
 
     } catch (err) {
-      setError(err.message || 'Signup failed. Please try again.')
       console.error("Signup error:", err)
+      if (err.response) {
+        setError(err.response.data.message || `Signup failed (HTTP ${err.response.status})`)
+      } else if (err.request) {
+        setError("No response from server. Please check your connection.")
+      } else {
+        setError("Signup failed. " + err.message)
+      }
     } finally {
       setIsLoading(false)
     }
   }
+
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-100 flex items-center justify-center p-4">
@@ -222,17 +213,17 @@ export default function AuthPages() {
               <div className="space-y-4">
                 <div>
                   <label htmlFor="login-email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
+                   Name
                   </label>
                   <div className="relative">
                     <span className="absolute left-3 top-3 text-gray-400">📧</span>
-                    <input
-                      id="login-email"
-                      type="email"
-                      placeholder="your@email.com"
-                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      value={loginData.email}
-                      onChange={(e) => setLoginData({...loginData, email: e.target.value})}
+                   <input
+  type="text"
+  placeholder="Enter your username"
+  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+  name="username"
+  value={loginData.username}
+  onChange={(e) => setLoginData({ ...loginData, username: e.target.value })}
                       required
                       disabled={isLoading}
                     />
@@ -316,8 +307,8 @@ export default function AuthPages() {
                       type="text"
                       placeholder="Your Name"
                       className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      value={signupData.fullName}
-                      onChange={(e) => setSignupData({...signupData, fullName: e.target.value})}
+                      value={signupData.username}
+                      onChange={(e) => setSignupData({...signupData, username: e.target.value})}
                       required
                       disabled={isLoading}
                     />

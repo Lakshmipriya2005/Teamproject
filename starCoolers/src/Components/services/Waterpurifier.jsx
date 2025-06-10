@@ -15,12 +15,12 @@ import {
   Zap,
   Settings,
 } from "lucide-react"
-
+import { useNavigate } from "react-router-dom";
 export default function WaterPurifierServicePage() {
   const [activeTab, setActiveTab] = useState(0)
   const [selectedPlan, setSelectedPlan] = useState(1)
   const [selectedCapacity, setSelectedCapacity] = useState({})
-
+const navigate = useNavigate()
   const services = [
     {
       icon: <Wrench className="w-8 h-8" />,
@@ -145,6 +145,7 @@ export default function WaterPurifierServicePage() {
       image: "/placeholder.svg?height=150&width=250",
     },
   ]
+  
 
   const capacityMultipliers = {
     "5L": 1.0,
@@ -382,7 +383,19 @@ export default function WaterPurifierServicePage() {
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-2xl font-bold text-blue-600">{card.price}</span>
                   </div>
-                  <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300">
+                  <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300"
+                  onClick={() =>
+    navigate("/book", {
+      state: {
+        serviceName: card.title,
+        price: card.price,
+        serviceType: "water purifier ",
+      },
+    })
+  }
+  
+                  
+                  >
                     Book Now
                   </button>
                 </div>
@@ -476,7 +489,20 @@ export default function WaterPurifierServicePage() {
                     </div>
                     <div className="text-right">
                       <div className="text-xl font-bold text-orange-600 mb-2">{service.price}</div>
-                      <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm">
+                      <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm"
+                      onClick={() =>
+    navigate("/book", {
+      state: {
+        serviceName: service.name,
+        price: service.price,
+         serviceType: "water purifier",
+      },
+    })
+  }
+ 
+                      
+                      
+                      >
                         Book Now
                       </button>
                     </div>
@@ -547,7 +573,19 @@ export default function WaterPurifierServicePage() {
                     </div>
                     <div className="text-right">
                       <div className="text-xl font-bold text-blue-600 mb-2">{service.price}</div>
-                      <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm">
+                      <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm"
+                      onClick={() =>
+    navigate("/book", {
+      state: {
+        serviceName: service.name,
+        price: service.price,
+         serviceType: "water purifier",
+      },
+    })
+  }
+ 
+                      
+                      >
                         Book Now
                       </button>
                     </div>
@@ -612,7 +650,19 @@ export default function WaterPurifierServicePage() {
                         </span>
                       </div>
 
-                      <button className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg w-full">
+                      <button className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg w-full"
+                          onClick={() =>
+    navigate("/buy-now", {
+      state: {
+        serviceName:brand.name,
+        price:brand.basePrice,
+        serviceType:"Water Purifier sale",
+      },
+    })
+  }
+     
+                      
+                      >
                         Buy Now
                       </button>
                     </div>

@@ -4,9 +4,11 @@ import ACServicePage from './Components/services/Acservice';
 import FridgeService from './Components/services/FridgeService';
 import WashingService from './Components/services/WashingService';
 import Auth from './Components/Login/LoginPage'
-import React from 'react';
+
 import AircoolerService from './Components/services/AircoolerService';
 import Waterpurifier from './Components/services/Waterpurifier';
+import BookingForm from './Components/Booking/BookingForm';
+import BuyNow from './Components/Booking/BuyNow';
 
 function App() {
   return (
@@ -17,8 +19,10 @@ function App() {
       <Route path="/washing-service" element={<WashingService />} />
       <Route path="/fridge-service" element={<FridgeService />} />
       <Route path="/ac-service" element={<ACServicePage/>} />
-      <Route path="/aircooler-service" element={<AircoolerService />} />
+      <Route path="/cooler-service" element={<AircoolerService />} />
       <Route path="/Auro" element={<Waterpurifier/>}/>
+       <Route path="/book" element={<BookingForm />} />
+       <Route path="/buy-now" element={<BuyNow/>} />
       </Routes>
     </BrowserRouter>
   );

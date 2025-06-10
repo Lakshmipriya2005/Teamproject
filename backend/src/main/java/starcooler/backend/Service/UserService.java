@@ -44,11 +44,11 @@ public class UserService {
         }
 
         UserEntity user = new UserEntity();
-        UserDto usersecDto = new UserDto();
-        usersecDto.setUsername(dto.getUsername());
-        usersecDto.setEmail(dto.getEmail());
+       
+       System.out.println("Registering user: " + dto.getUsername());
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
+       
         user.setRole("USER");
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
       
