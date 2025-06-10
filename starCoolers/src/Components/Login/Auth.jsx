@@ -298,14 +298,14 @@ export default function AuthPages() {
               <div className="space-y-4">
                 <div>
                   <label htmlFor="signup-name" className="block text-sm font-medium text-gray-700 mb-1">
-                    Full Name
+                    User Name
                   </label>
                   <div className="relative">
                     <span className="absolute left-3 top-3 text-gray-400">👤</span>
                     <input
                       id="signup-name"
                       type="text"
-                      placeholder="Your Name"
+                      placeholder="User Name"
                       className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       value={signupData.username}
                       onChange={(e) => setSignupData({...signupData, username: e.target.value})}

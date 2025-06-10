@@ -25,6 +25,9 @@ import {
   GlassWaterIcon,
   
   BookDownIcon,
+  
+  BoxIcon,
+  
 } from "lucide-react"
 import AircoolerService from "../services/AircoolerService";
 import FridgeService from "../services/FridgeService";
@@ -240,22 +243,22 @@ export default function HomeApplianceServices() {
                       <Snowflake className="w-5 h-5 text-blue-500" />
                       <span>Air Conditioning</span>
                     </Link>
-                    <a
-                      href="#book-washing-machine"
+                    <Link
+                      to="/washing-service"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                     >
                       <Zap className="w-5 h-5 text-purple-500" />
                       <span>Washing Machine</span>
-                    </a>
+                    </Link>
                     <Link
-                      to="AircoolerService"
+                      to="/fridge-service"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                     >
                       <Refrigerator className="w-5 h-5 text-green-500" />
                       <span>Refrigerator</span>
                     </Link>
                     <Link
-                      to="aircooler-service"
+                      to="/cooler-service"
                       className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                     >
                       <Wind className="w-5 h-5 text-cyan-500" />
@@ -308,6 +311,13 @@ export default function HomeApplianceServices() {
                       <BookDownIcon className="w-4 h-4" />
                       <span>Booked Service</span>
                     </Link>
+                     <Link
+                      to="/Login"
+                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                    >
+                      <BoxIcon className="w-4 h-4" />
+                      <span>Orders</span>
+                    </Link>
                    
                   </div>
                 )}
@@ -348,6 +358,14 @@ export default function HomeApplianceServices() {
                     >
                       <BookDownIcon className="w-4 h-4" />
                       <span>Booked Service</span>
+                    </Link>
+
+                     <Link
+                      to="/Login"
+                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                    >
+                      <BoxIcon className="w-4 h-4" />
+                      <span>Orders</span>
                     </Link>
                    
                   </div>
@@ -392,40 +410,40 @@ export default function HomeApplianceServices() {
                   {isBookServiceDropdownOpen && (
                     <div className="mt-2 w-full bg-white rounded-xl shadow-lg border border-gray-100 py-2">
                       <Link
-                        to="ac-service"
+                        to="/ac-service"
                         className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                       >
                         <Snowflake className="w-5 h-5 text-blue-500" />
                         <span>Air Conditioning</span>
                       </Link>
-                      <a
-                        href="#book-washing-machine"
+                      <Link
+                        to="/washing-service"
                         className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                       >
                         <Zap className="w-5 h-5 text-purple-500" />
                         <span>Washing Machine</span>
-                      </a>
-                      <a
-                        href="#book-fridge"
+                      </Link>
+                      <Link
+                        to="/fridge-service"
                         className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                       >
                         <Refrigerator className="w-5 h-5 text-green-500" />
                         <span>Refrigerator</span>
-                      </a>
-                      <a
-                        href="#book-air-cooler"
+                      </Link>
+                      <Link
+                        to="/cooler-service"
                         className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                       >
                         <Wind className="w-5 h-5 text-cyan-500" />
                         <span>Air Cooler</span>
-                      </a>
-                      <a
-                        href="#book-air-purifier"
+                      </Link>
+                      <Link
+                        to="/Auro"
                         className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-3"
                       >
                         <GlassWaterIcon className="w-5 h-5 text-teal-500" />
                         <span>Air Purifier</span>
-                      </a>
+                      </Link>
                     </div>
                   )}
                 </div>

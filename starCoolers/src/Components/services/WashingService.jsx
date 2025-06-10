@@ -442,7 +442,7 @@ const washingMachineBrands = [
                     </div>
                     <div className="text-right">
                       <div className="text-2xl font-bold text-green-600 mb-3">{service.price}</div>
-                      <button className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-green-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-md"
+                      <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm"
                       onClick={() =>
     navigate("/book", {
       state: {
@@ -525,7 +525,7 @@ const washingMachineBrands = [
                 </div>
 
                 <button
-  className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md"
+  className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg w-full"
   onClick={() =>
     navigate("/buy-now", {
       state: {
