@@ -1,6 +1,7 @@
 
+
 import { useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import {
   Snowflake,
   Wrench,
@@ -58,37 +59,6 @@ export default function ACServicePage() {
     { name: "Haier", basePrice: 34000, rating: "4.75", reviews: "16K" },
     { name: "Panasonic", basePrice: 39000, rating: "4.82", reviews: "19K" },
     { name: "Godrej", basePrice: 31000, rating: "4.73", reviews: "12K" },
-  ]
-
-  const serviceCards = [
-    {
-      title: "AC less/no cooling repair",
-      price: "₹299",
-      duration: "1-2 hrs",
-      rating: "4.85",
-      reviews: "25K",
-    },
-    {
-      title: "AC power issue repair",
-      price: "₹299",
-      duration: "1-2 hrs",
-      rating: "4.78",
-      reviews: "18K",
-    },
-    {
-      title: "AC noise/smell repair",
-      price: "₹499",
-      duration: "1-3 hrs",
-      rating: "4.72",
-      reviews: "12K",
-    },
-    {
-      title: "AC water leakage repair",
-      price: "₹899",
-      duration: "2-3 hrs",
-      rating: "4.88",
-      reviews: "30K",
-    },
   ]
 
   const tonnageMultipliers = {
@@ -203,11 +173,6 @@ export default function ACServicePage() {
                   </div>
                 ))}
               </div>
-
-              {/* Service Image */}
-              {/* <div className="w-full h-64 bg-gray-200 rounded-xl flex items-center justify-center">
-                <span className="text-sm text-gray-500">Service Image</span>
-              </div> */}
             </div>
 
             <div className="bg-gradient-to-br from-cyan-50 to-blue-100 p-8 rounded-2xl shadow-lg">
@@ -232,42 +197,6 @@ export default function ACServicePage() {
           </div>
         </div>
       </section>
-
-      {/* Service Cards Section */}
-      {/* <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Popular Repair Services</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {serviceCards.map((card, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center">
-                  <span className="text-sm text-gray-500">Service Image</span>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-bold text-lg mb-2">{card.title}</h3>
-                  <div className="flex items-center mb-2">
-                    <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                    <span className="text-sm text-gray-600 ml-1">
-                      {card.rating} ({card.reviews})
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-500 mb-4">{card.duration}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xl font-bold text-orange-600">{card.price}</span>
-                    <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300">
-                      Book Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
 
       {/* Maintenance & Service Cards Section */}
       <section className="py-16 bg-white">
@@ -326,20 +255,18 @@ export default function ACServicePage() {
                   <p className="text-sm text-gray-500 mb-4">{card.duration}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-xl font-bold text-blue-600">{card.price}</span>
-                    <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300"
-onClick={() =>
-    navigate("/book", {
-      state: {
-        serviceName: card.title,
-        price: card.price,
-        serviceType: "Ac service",
-      },
-    })
-  }
-
->
-                    
-                    
+                    <button
+                      className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300"
+                      onClick={() =>
+                        navigate("/book", {
+                          state: {
+                            serviceName: card.title,
+                            price: card.price,
+                            serviceType: "Ac service",
+                          },
+                        })
+                      }
+                    >
                       Book Now
                     </button>
                   </div>
@@ -350,8 +277,7 @@ onClick={() =>
         </div>
       </section>
 
-     
-      {/* Service Pricing Section */}
+      {/* Service Pricing Section - Updated to match fridge layout */}
       <section className="py-20 bg-gradient-to-br from-gray-50 via-cyan-50 to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Services Grid */}
@@ -366,7 +292,7 @@ onClick={() =>
                 <p className="text-gray-600">Expert repair services for all AC issues</p>
               </div>
 
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   {
                     name: "AC less/no cooling repair",
@@ -402,8 +328,10 @@ onClick={() =>
                 ].map((service, index) => (
                   <div
                     key={index}
-                    className={`relative flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border-2 border-gray-200 hover:border-orange-300 hover:shadow-lg transition-all duration-300 transform hover:scale-102 ${
-                      service.popular ? "bg-gradient-to-r from-orange-50 to-red-50 border-orange-400" : ""
+                    className={`relative bg-gradient-to-r from-gray-50 to-white p-4 rounded-xl border-2 hover:shadow-lg transition-all duration-300 transform hover:scale-102 ${
+                      service.popular
+                        ? "border-orange-400 bg-gradient-to-r from-orange-50 to-red-50"
+                        : "border-gray-200 hover:border-orange-300"
                     }`}
                   >
                     {service.popular && (
@@ -413,34 +341,28 @@ onClick={() =>
                         </span>
                       </div>
                     )}
-                    <div className="flex items-center space-x-3">
-                      <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-full h-20 bg-gray-200 rounded-lg flex items-center justify-center mb-3">
                         <span className="text-xs text-gray-500">Service Image</span>
                       </div>
-                      <div>
-                        <h3 className="font-bold text-gray-800 mb-1">{service.name}</h3>
-                        <div className="flex items-center mb-1">
-                          <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
-                          <span className="text-sm text-gray-600">{service.rating}</span>
-                        </div>
-                        <p className="text-sm text-gray-500">{service.duration}</p>
+                      <h3 className="font-bold text-gray-800 text-sm mb-2">{service.name}</h3>
+                      <div className="flex items-center justify-center mb-1">
+                        <Star className="w-3 h-3 text-yellow-500 fill-current mr-1" />
+                        <span className="text-xs text-gray-600">{service.rating}</span>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xl font-bold text-orange-600 mb-2">{service.price}</div>
-                      <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm"
-                      onClick={() =>
-    navigate("/book", {
-      state: {
-        serviceName: service.name,
-        price: service.price,
-        serviceType: "Ac service",
-      },
-    })
-  }
- 
-                      
-                      
+                      <p className="text-xs text-gray-500 mb-3">{service.duration}</p>
+                      <div className="text-xl font-bold text-orange-600 mb-3">{service.price}</div>
+                      <button
+                        className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md w-full text-sm"
+                        onClick={() =>
+                          navigate("/book", {
+                            state: {
+                              serviceName: service.name,
+                              price: service.price,
+                              serviceType: "Ac service",
+                            },
+                          })
+                        }
                       >
                         Book Now
                       </button>
@@ -460,7 +382,7 @@ onClick={() =>
                 <p className="text-gray-600">Professional installation & removal services</p>
               </div>
 
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   {
                     name: "Split AC installation",
@@ -489,33 +411,30 @@ onClick={() =>
                 ].map((service, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border-2 border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 transform hover:scale-102"
+                    className="bg-gradient-to-r from-gray-50 to-white p-4 rounded-xl border-2 border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 transform hover:scale-102"
                   >
-                    <div className="flex items-center space-x-3">
-                      <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-full h-20 bg-gray-200 rounded-lg flex items-center justify-center mb-3">
                         <span className="text-xs text-gray-500">Service Image</span>
                       </div>
-                      <div>
-                        <h3 className="font-bold text-gray-800 mb-1">{service.name}</h3>
-                        <div className="flex items-center mb-1">
-                          <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
-                          <span className="text-sm text-gray-600">{service.rating}</span>
-                        </div>
-                        <p className="text-sm text-gray-500">{service.duration}</p>
+                      <h3 className="font-bold text-gray-800 text-sm mb-2">{service.name}</h3>
+                      <div className="flex items-center justify-center mb-1">
+                        <Star className="w-3 h-3 text-yellow-500 fill-current mr-1" />
+                        <span className="text-xs text-gray-600">{service.rating}</span>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xl font-bold text-blue-600 mb-2">{service.price}</div>
-                      <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm"
-                     onClick={() =>
-    navigate("/book", {
-      state: {
-        serviceName: service.name,
-        price: service.price,
-      },
-    })
-  }
->
+                      <p className="text-xs text-gray-500 mb-3">{service.duration}</p>
+                      <div className="text-xl font-bold text-blue-600 mb-3">{service.price}</div>
+                      <button
+                        className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md w-full text-sm"
+                        onClick={() =>
+                          navigate("/book", {
+                            state: {
+                              serviceName: service.name,
+                              price: service.price,
+                            },
+                          })
+                        }
+                      >
                         Book Now
                       </button>
                     </div>
@@ -580,17 +499,17 @@ onClick={() =>
                         </span>
                       </div>
 
-                      <button className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg w-full"
-                      onClick={() =>
-    navigate("/buy-now", {
-      state: {
-        serviceName:brand.name,
-        price:brand.basePrice,
-        serviceType: "AC Sale",
-      },
-    })
-  }
-                      
+                      <button
+                        className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg w-full"
+                        onClick={() =>
+                          navigate("/buy-now", {
+                            state: {
+                              serviceName: brand.name,
+                              price: brand.basePrice,
+                              serviceType: "AC Sale",
+                            },
+                          })
+                        }
                       >
                         Buy Now
                       </button>

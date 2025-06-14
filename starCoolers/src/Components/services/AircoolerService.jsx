@@ -1,5 +1,6 @@
+"use client"
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import {
   Wind,
@@ -364,102 +365,87 @@ export default function AirCoolerServicePage() {
         </div>
       </section>
 
-      {/* Service Pricing Section */}
+      {/* Service Pricing Section - Updated to match fridge layout */}
       <section className="py-20 bg-gradient-to-br from-gray-50 via-cyan-50 to-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        < div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Services Grid */}
           <div className="grid md:grid-cols-2 gap-8 mb-16">
             {/* Repair & Pad Replacement Section */}
-            <div className="bg-white rounded-3xl shadow-lg p-8 hover:shadow-xl transition-all duration-500 border border-gray-100">
-              <div className="flex flex-col items-center mb-8">
-                <div className="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center mb-4">
-                  <Wrench className="w-10 h-10 text-white" />
+            <div className="bg-white rounded-3xl shadow-2xl p-8 hover:shadow-3xl transition-all duration-500 border border-gray-100">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full mb-4">
+                  <Wrench className="w-8 h-8 text-white" />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">Repair & Pad Replacement</h2>
-                <p className="text-gray-600 text-center">Expert repair services for all air cooler issues</p>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">Repair & Maintenance</h2>
+                <p className="text-gray-600">Expert repair services for all air cooler issues</p>
               </div>
-
-              <div className="space-y-4">
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   {
                     name: "Air cooler not working",
                     price: "₹299",
                     duration: "60 mins",
-                    rating: "4.85",
-                    reviews: "25K",
+                    rating: "4.85 (25K)"
                   },
                   {
-                    name: "Water pump repair",
+                    name: "Water pump repair", 
                     price: "₹399",
                     duration: "75 mins",
-                    rating: "4.78",
-                    reviews: "18K",
+                    rating: "4.78 (18K)"
                   },
                   {
                     name: "Motor repair/replacement",
                     price: "₹799",
                     duration: "90 mins",
-                    rating: "4.72",
-                    reviews: "12K",
+                    rating: "4.72 (12K)"
                   },
                   {
                     name: "Cooling pad replacement",
                     price: "₹599",
                     duration: "45 mins",
-                    rating: "4.88",
-                    reviews: "30K",
-                    popular: true,
+                    rating: "4.88 (30K)",
+                    popular: true
                   },
                   {
                     name: "Water leakage repair",
                     price: "₹349",
                     duration: "60 mins",
-                    rating: "4.92",
-                    reviews: "45K",
-                  },
+                    rating: "4.92 (45K)"
+                  }
                 ].map((service, index) => (
-                  <div
-                    key={index}
-                    className={`relative flex items-center justify-between p-4 rounded-xl border hover:shadow-md transition-all duration-300 ${
-                      service.popular ? "border-orange-400 bg-orange-50" : "border-gray-200 bg-white"
+                  <div 
+                    key={index} 
+                    className={`relative bg-gradient-to-r from-gray-50 to-white p-4 rounded-xl border-2 hover:shadow-lg transition-all duration-300 transform hover:scale-102 ${
+                      service.popular ? 'border-orange-400 bg-gradient-to-r from-orange-50 to-red-50' : 'border-gray-200 hover:border-orange-300'
                     }`}
                   >
                     {service.popular && (
                       <div className="absolute -top-2 -right-2">
-                        <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
-                          Most Popular
-                        </span>
+                        <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-pulse">Most Popular</span>
                       </div>
                     )}
-                    <div className="flex items-center space-x-3">
-                      <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-full h-20 bg-gray-200 rounded-lg flex items-center justify-center mb-3">
                         <span className="text-xs text-gray-500">Service Image</span>
                       </div>
-                      <div>
-                        <h3 className="font-bold text-gray-800 mb-1">{service.name}</h3>
-                        <div className="flex items-center mb-1">
-                          <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
-                          <span className="text-sm text-gray-600">
-                            {service.rating} ({service.reviews})
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-500">{service.duration}</p>
+                      <h3 className="font-bold text-gray-800 text-sm mb-2">{service.name}</h3>
+                      <div className="flex items-center justify-center mb-1">
+                        <Star className="w-3 h-3 text-yellow-500 fill-current mr-1" />
+                        <span className="text-xs text-gray-600">{service.rating}</span>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xl font-bold text-orange-600 mb-2">{service.price}</div>
-                      <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm"
+                      <p className="text-xs text-gray-500 mb-3">{service.duration}</p>
+                      <div className="text-xl font-bold text-orange-600 mb-3">{service.price}</div>
+                      <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md w-full text-sm"
                       onClick={() =>
-    navigate("/book", {
-      state: {
-        serviceName: service.name,
-        price: service.price,
-         serviceType:"Air Cooler Service",
-      },
-    })
-  }
-
-                      >
+                        navigate("/book", {
+                          state: {
+                            serviceName: service.name,
+                            price: service.price,
+                            serviceType: "Air Cooler Service",
+                          },
+                        })
+                      }>
                         Book Now
                       </button>
                     </div>
@@ -469,78 +455,67 @@ export default function AirCoolerServicePage() {
             </div>
 
             {/* Installation/Uninstallation Section */}
-            <div className="bg-white rounded-3xl shadow-lg p-8 hover:shadow-xl transition-all duration-500 border border-gray-100">
-              <div className="flex flex-col items-center mb-8">
-                <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mb-4">
-                  <Wind className="w-10 h-10 text-white" />
+            <div className="bg-white rounded-3xl shadow-2xl p-8 hover:shadow-3xl transition-all duration-500 border border-gray-100">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mb-4">
+                  <Wind className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">Installation/Uninstallation</h2>
-                <p className="text-gray-600 text-center">Professional installation & removal services</p>
+                <p className="text-gray-600">Professional installation & removal services</p>
               </div>
-
-              <div className="space-y-4">
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   {
                     name: "Desert cooler installation",
                     price: "₹499",
                     duration: "90 mins",
-                    rating: "4.73",
-                    reviews: "102K",
+                    rating: "4.73 (102K)"
                   },
                   {
-                    name: "Tower cooler installation",
+                    name: "Tower cooler installation", 
                     price: "₹399",
                     duration: "60 mins",
-                    rating: "4.81",
-                    reviews: "14K",
+                    rating: "4.81 (14K)"
                   },
                   {
                     name: "Desert cooler uninstallation",
                     price: "₹299",
                     duration: "45 mins",
-                    rating: "4.65",
-                    reviews: "8K",
+                    rating: "4.65 (8K)"
                   },
                   {
                     name: "Tower cooler uninstallation",
                     price: "₹199",
                     duration: "30 mins",
-                    rating: "4.58",
-                    reviews: "5K",
-                  },
+                    rating: "4.58 (5K)"
+                  }
                 ].map((service, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-4 rounded-xl border border-gray-200 bg-white hover:shadow-md transition-all duration-300"
+                  <div 
+                    key={index} 
+                    className="bg-gradient-to-r from-gray-50 to-white p-4 rounded-xl border-2 border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 transform hover:scale-102"
                   >
-                    <div className="flex items-center space-x-3">
-                      <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-full h-20 bg-gray-200 rounded-lg flex items-center justify-center mb-3">
                         <span className="text-xs text-gray-500">Service Image</span>
                       </div>
-                      <div>
-                        <h3 className="font-bold text-gray-800 mb-1">{service.name}</h3>
-                        <div className="flex items-center mb-1">
-                          <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
-                          <span className="text-sm text-gray-600">
-                            {service.rating} ({service.reviews})
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-500">{service.duration}</p>
+                      <h3 className="font-bold text-gray-800 text-sm mb-2">{service.name}</h3>
+                      <div className="flex items-center justify-center mb-1">
+                        <Star className="w-3 h-3 text-yellow-500 fill-current mr-1" />
+                        <span className="text-xs text-gray-600">{service.rating}</span>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xl font-bold text-blue-600 mb-2">{service.price}</div>
-                      <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm"
+                      <p className="text-xs text-gray-500 mb-3">{service.duration}</p>
+                      <div className="text-xl font-bold text-blue-600 mb-3">{service.price}</div>
+                      <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md w-full text-sm"
                       onClick={() =>
-    navigate("/book", {
-      state: {
-        serviceName: service.name,
-        price: service.price,
-      },
-    })
-  }
-
-                      >
+                        navigate("/book", {
+                          state: {
+                            serviceName: service.name,
+                            price: service.price,
+                            serviceType: "Air Cooler Service",
+                          },
+                        })
+                      }>
                         Book Now
                       </button>
                     </div>
@@ -549,8 +524,7 @@ export default function AirCoolerServicePage() {
               </div>
             </div>
           </div>
-
-          {/* Air Cooler Brands for Sale Section */}
+            {/* Air Cooler Brands for Sale Section */}
           <div className="bg-white rounded-3xl shadow-2xl p-8 hover:shadow-3xl transition-all duration-500 border border-gray-100">
             <div className="text-center mb-10">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-full mb-4">
@@ -622,11 +596,11 @@ export default function AirCoolerServicePage() {
                       </button>
                     </div>
                   </div>
-                )
+                );
               })}
             </div>
           </div>
-        </div>
+          </div>
       </section>
 
       {/* Interactive CTA */}

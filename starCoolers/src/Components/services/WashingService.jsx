@@ -1,18 +1,5 @@
 import { useState } from "react"
-import {
-  Wrench,
-  Clock,
-  Shield,
-  Phone,
-  CheckCircle,
-  Star,
-  Users,
-  ArrowRight,
-  Droplets,
-  Zap,
-  RotateCcw,
-  Settings2,
-} from "lucide-react"
+import { Wrench, Clock, Shield, Phone, CheckCircle, Star, Users, ArrowRight, Droplets, Zap, RotateCcw, Settings2 } from 'lucide-react'
 import { useNavigate } from "react-router-dom";
 export default function WashingService() {
   const [activeTab, setActiveTab] = useState(0)
@@ -54,6 +41,10 @@ export default function WashingService() {
   // Added new state for product tabs
 const [productTab, setProductTab] = useState('refrigerators')
 
+const handleTypeChange = (productIndex, newType) => {
+  // Update the active type for the specific product
+  // This would typically update state, but for simplicity we'll handle it in the component
+}
 
 
 const washingMachineBrands = [
@@ -355,7 +346,7 @@ const washingMachineBrands = [
         </div>
       </section>
 
-      {/* Service Pricing Section */}
+      {/* Service Pricing Section - Updated to match fridge layout */}
       <section className="py-20 bg-gradient-to-br from-gray-50 via-cyan-50 to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Services Grid */}
@@ -366,43 +357,82 @@ const washingMachineBrands = [
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full mb-4">
                   <Wrench className="w-8 h-8 text-white" />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">Common Issues Repair</h2>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">Repair & Maintenance</h2>
                 <p className="text-gray-600">Expert repair services for all washing machine problems</p>
               </div>
-
-              <div className="grid grid-cols-1 gap-4">
-                {commonIssues.map((issue, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border-2 border-gray-200 hover:border-orange-300 hover:shadow-lg transition-all duration-300 transform hover:scale-102"
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  {
+                    name: "Unknown issue",
+                    price: "₹99",
+                    duration: "1-2 hrs",
+                    rating: "4.81 (155K)"
+                  },
+                  {
+                    name: "Not spinning/washing", 
+                    price: "₹99",
+                    duration: "1-2 hrs",
+                    rating: "4.81 (69K)"
+                  },
+                  {
+                    name: "Draining issue",
+                    price: "₹99",
+                    duration: "1-2 hrs",
+                    rating: "4.80 (33K)"
+                  },
+                  {
+                    name: "Error in display",
+                    price: "₹99",
+                    duration: "1-2 hrs",
+                    rating: "4.81 (28K)"
+                  },
+                  {
+                    name: "Noise issue",
+                    price: "₹99",
+                    duration: "1-2 hrs",
+                    rating: "4.76 (17K)",
+                    popular: true
+                  },
+                  {
+                    name: "Power issue",
+                    price: "₹99",
+                    duration: "1-2 hrs",
+                    rating: "4.80 (17K)"
+                  }
+                ].map((issue, index) => (
+                  <div 
+                    key={index} 
+                    className={`relative bg-gradient-to-r from-gray-50 to-white p-4 rounded-xl border-2 hover:shadow-lg transition-all duration-300 transform hover:scale-102 ${
+                      issue.popular ? 'border-orange-400 bg-gradient-to-r from-orange-50 to-red-50' : 'border-gray-200 hover:border-orange-300'
+                    }`}
                   >
-                    <div className="flex items-center space-x-3">
-                      <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                    {issue.popular && (
+                      <div className="absolute -top-2 -right-2">
+                        <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-pulse">Most Popular</span>
+                      </div>
+                    )}
+                    <div className="text-center">
+                      <div className="w-full h-20 bg-gray-200 rounded-lg flex items-center justify-center mb-3">
                         <span className="text-xs text-gray-500">Issue Image</span>
                       </div>
-                      <div>
-                        <h3 className="font-bold text-gray-800 mb-1">{issue.title}</h3>
-                        <div className="flex items-center mb-1">
-                          <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
-                          <span className="text-sm text-gray-600">{issue.rating} ({issue.reviews})</span>
-                        </div>
-                        <p className="text-sm text-gray-500">{issue.duration}</p>
+                      <h3 className="font-bold text-gray-800 text-sm mb-2">{issue.name}</h3>
+                      <div className="flex items-center justify-center mb-1">
+                        <Star className="w-3 h-3 text-yellow-500 fill-current mr-1" />
+                        <span className="text-xs text-gray-600">{issue.rating}</span>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xl font-bold text-orange-600 mb-2">{issue.price}</div>
-                      <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm"
+                      <p className="text-xs text-gray-500 mb-3">{issue.duration}</p>
+                      <div className="text-xl font-bold text-orange-600 mb-3">{issue.price}</div>
+                      <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md w-full text-sm"
                       onClick={() =>
-    navigate("/book", {
-      state: {
-        serviceName: issue.title,
-        price: issue.price,
-        serviceType: "washing machine",
-      },
-    })
-  }
- 
-                      >
+                        navigate("/book", {
+                          state: {
+                            serviceName: issue.name,
+                            price: issue.price,
+                            serviceType: "washing machine",
+                          },
+                        })
+                      }>
                         Book Now
                       </button>
                     </div>
@@ -414,47 +444,65 @@ const washingMachineBrands = [
             {/* Installation/Uninstallation Section */}
             <div className="bg-white rounded-3xl shadow-2xl p-8 hover:shadow-3xl transition-all duration-500 border border-gray-100">
               <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-full mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mb-4">
                   <Settings2 className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">Installation & Uninstallation</h2>
                 <p className="text-gray-600">Professional installation & removal services</p>
               </div>
-
-              <div className="space-y-6">
-                {installationServices.map((service, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-6 bg-gradient-to-r from-gray-50 to-white rounded-xl border-2 border-gray-200 hover:border-green-300 hover:shadow-lg transition-all duration-300 transform hover:scale-102"
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  {
+                    name: "Washing machine installation",
+                    price: "₹599",
+                    duration: "1-2 hrs",
+                    rating: "4.85 (33K)"
+                  },
+                  {
+                    name: "Washing machine uninstallation", 
+                    price: "₹399",
+                    duration: "1 hr",
+                    rating: "4.82 (15K)"
+                  },
+                  {
+                    name: "Top load machine check-up",
+                    price: "₹299",
+                    duration: "60 mins",
+                    rating: "4.80 (319K)"
+                  },
+                  {
+                    name: "Front load machine check-up",
+                    price: "₹299",
+                    duration: "60 mins",
+                    rating: "4.78 (144K)"
+                  }
+                ].map((service, index) => (
+                  <div 
+                    key={index} 
+                    className="bg-gradient-to-r from-gray-50 to-white p-4 rounded-xl border-2 border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 transform hover:scale-102"
                   >
-                    <div className="flex items-center space-x-4">
-                      <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-full h-20 bg-gray-200 rounded-lg flex items-center justify-center mb-3">
                         <span className="text-xs text-gray-500">Service Image</span>
                       </div>
-                      <div>
-                        <h3 className="font-bold text-gray-800 text-lg mb-2">{service.title}</h3>
-                        <div className="flex items-center mb-1">
-                          <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
-                          <span className="text-sm text-gray-600">{service.rating} ({service.reviews})</span>
-                        </div>
-                        <p className="text-sm text-gray-500">{service.duration}</p>
+                      <h3 className="font-bold text-gray-800 text-sm mb-2">{service.name}</h3>
+                      <div className="flex items-center justify-center mb-1">
+                        <Star className="w-3 h-3 text-yellow-500 fill-current mr-1" />
+                        <span className="text-xs text-gray-600">{service.rating}</span>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold text-green-600 mb-3">{service.price}</div>
-                      <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md text-sm"
+                      <p className="text-xs text-gray-500 mb-3">{service.duration}</p>
+                      <div className="text-xl font-bold text-blue-600 mb-3">{service.price}</div>
+                      <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-md w-full text-sm"
                       onClick={() =>
-    navigate("/book", {
-      state: {
-        serviceName: service.title,
-        price: service.price,
-        serviceType: "washing machine",
-
-      },
-    })
-  }
-  >
- 
+                        navigate("/book", {
+                          state: {
+                            serviceName: service.name,
+                            price: service.price,
+                            serviceType: "washing machine",
+                          },
+                        })
+                      }>
                         Book Now
                       </button>
                     </div>
