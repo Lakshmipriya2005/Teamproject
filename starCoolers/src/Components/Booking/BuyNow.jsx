@@ -1,9 +1,10 @@
-import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import { ShoppingCart } from 'lucide-react'
 
 const BuyNow = () => {
-  const location = useLocation();
-  const { serviceName, price } = location.state || {};
+  // Mock location state for demonstration
+  const serviceName = "Aquaguard Water Purifier 7L";
+  const price = "₹18,000";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -48,7 +49,10 @@ const BuyNow = () => {
 
   return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-lg p-6 rounded-xl">
-      <h2 className="text-2xl font-bold mb-4 text-center">Buy Now</h2>
+      <div className="flex items-center justify-center mb-4">
+        <ShoppingCart className="w-10 h-10 mr-3 text-green-600" />
+        <h2 className="text-2xl font-bold text-center">Buy Now</h2>
+      </div>
 
       {message && (
         <div
@@ -60,7 +64,7 @@ const BuyNow = () => {
         </div>
       )}
 
-      <form className="space-y-4" onSubmit={handleSubmit}>
+      <div className="space-y-4">
         <div>
           <label className="block mb-1 font-semibold">Name</label>
           <input
@@ -129,12 +133,13 @@ const BuyNow = () => {
         </div>
 
         <button
-          type="submit"
+          type="button"
+          onClick={handleSubmit}
           className="w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700"
         >
           Place Order
         </button>
-      </form>
+      </div>
     </div>
   );
 };

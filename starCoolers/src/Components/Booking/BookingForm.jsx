@@ -1,12 +1,11 @@
-import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios"; // Make sure axios is installed
+import { Book } from 'lucide-react'
 
 const BookingForm = () => {
-  const location = useLocation();
-  const { serviceName, price,serviceType } = location.state || {};
-  console.log(serviceType);
- 
+  // Mock location state for demonstration
+  const serviceName = "Water Purifier Repair";
+  const price = "₹299";
+  const serviceType = "repair";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -29,13 +28,12 @@ const BookingForm = () => {
       ...formData,
       service: serviceName,
       amount: price,
-      servicetype:serviceType,
+      servicetype: serviceType,
     };
 
     try {
-      // 🔁 Replace with your actual API URL
-      const response = await axios.post(`http://localhost:8080/booked/bookeduser/${id}`, bookingData);
-      console.log("Booking submitted:", response.data);
+      // Simulate API call
+      console.log("Booking submitted:", bookingData);
       setSubmitted(true);
       setError(null);
     } catch (err) {
@@ -46,14 +44,17 @@ const BookingForm = () => {
 
   return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-lg p-6 rounded-xl">
-      <h2 className="text-2xl font-bold mb-4 text-center">Book Your Service</h2>
+      <div className="flex items-center justify-center mb-4">
+        <Book className="w-10 h-10 mr-3 text-orange-500" />
+        <h2 className="text-2xl font-bold text-center">Book Your Service</h2>
+      </div>
 
       {submitted ? (
         <div className="text-green-600 text-center font-semibold">
           ✅ Booking Submitted Successfully!
         </div>
       ) : (
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <div className="space-y-4">
           <div>
             <label className="block mb-1 font-semibold">Name</label>
             <input
@@ -124,12 +125,13 @@ const BookingForm = () => {
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <button
-            type="submit"
+            type="button"
+            onClick={handleSubmit}
             className="w-full bg-orange-500 text-white py-2 rounded-lg font-semibold hover:bg-orange-600"
           >
             Submit Booking
           </button>
-        </form>
+        </div>
       )}
     </div>
   );
