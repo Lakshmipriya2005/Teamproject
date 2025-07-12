@@ -1,6 +1,7 @@
+"use client"
 
 import { useState, useEffect } from "react"
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import logo from "../../assets/logo.png"
 import {
   Phone,
@@ -23,83 +24,195 @@ import {
   User,
   ChevronDown,
   GlassWaterIcon,
-  
   BookDownIcon,
-  
   BoxIcon,
-  
+  LogOut,
+  CheckCircle,
 } from "lucide-react"
-import AircoolerService from "../services/AircoolerService";
-import FridgeService from "../services/FridgeService";
-import WashingService from "../services/WashingService";
-import ACServicePage from "../services/Acservice";
+import AircoolerService from "../services/AircoolerService"
+import FridgeService from "../services/FridgeService"
+import WashingService from "../services/WashingService"
+import ACServicePage from "../services/Acservice"
 import { useNavigate } from "react-router-dom"
-import Waterpurifier from "../services/Waterpurifier";
-
+import Waterpurifier from "../services/Waterpurifier"
 
 export const services = [
-    {
-      icon: <Snowflake className="w-12 h-12" />,
-      title: "Air Conditioning Service",
-      description: "Complete AC maintenance, repair and installation services for residential and commercial units.",
-      features: ["Regular Maintenance", "Repair Services", "New Installation", "24/7 Emergency Support"],
-      color: "from-blue-500 to-cyan-500",
-      route: "/ac-service",
-      component: ACServicePage,
-    },
-    {
-      icon: <Wind className="w-12 h-12" />,
-      title: "Air Cooler Service",
-      description: "Professional air cooler maintenance, repair and installation for optimal cooling efficiency.",
-      features: ["Pad Replacement", "Motor Servicing", "Water System Check", "Complete Overhaul"],
-      color: "from-green-500 to-emerald-500",
-      route: "/cooler-service",
-      component: AircoolerService , // replace with actual component
-    },
-    {
-      icon: <Refrigerator className="w-12 h-12" />,
-      title: "Refrigerator Service",
-      description: "Expert refrigerator repair and maintenance services for all brands and models.",
-      features: ["Cooling Issues", "Compressor Repair", "Door Seal Replacement", "Temperature Control"],
-      color: "from-purple-500 to-pink-500",
-      route: "/fridge-service",
-      component:FridgeService, // replace with actual component
-    },
-    {
-      icon: <Zap className="w-12 h-12" />,
-      title: "Washing Machine Service",
-      description: "Professional washing machine repair and maintenance for front load and top load machines.",
-      features: ["Drum Cleaning", "Motor Repair", "Water Inlet Issues", "Spin Problems"],
-      color: "from-orange-500 to-red-500",
-      route: "/washing-service",
-      component: WashingService,
-    },
-    {
-      icon: <Thermometer className="w-12 h-12" />,
-      title: "HVAC Solutions",
-      description: "Comprehensive heating, ventilation and air conditioning solutions for all environments.",
-      features: ["System Design", "Duct Cleaning", "Filter Replacement", "Energy Optimization"],
-      color: "from-indigo-500 to-purple-500",
-      route: "/hvac-service",
-      component: () => <div>HVAC Service</div>,
-    },
-    {
-     icon: <GlassWaterIcon className="w-12 h-12" />,
-      title: "Auro Water Purifier Repair",
-      description: "Professional repair services for all types of home appliances and electrical equipment.",
-      features: ["Water over flow", "Water leakage", "Low water output", "Noise operation"],
-      color: "from-teal-500 to-green-500",
-      route: "/Auro",
-      component: Waterpurifier,
-    },
-  ];
+  {
+    icon: <Snowflake className="w-12 h-12" />,
+    title: "Air Conditioning Service",
+    description: "Complete AC maintenance, repair and installation services for residential and commercial units.",
+    features: ["Regular Maintenance", "Repair Services", "New Installation", "24/7 Emergency Support"],
+    color: "from-blue-500 to-cyan-500",
+    route: "/ac-service",
+    component: ACServicePage,
+  },
+  {
+    icon: <Wind className="w-12 h-12" />,
+    title: "Air Cooler Service",
+    description: "Professional air cooler maintenance, repair and installation for optimal cooling efficiency.",
+    features: ["Pad Replacement", "Motor Servicing", "Water System Check", "Complete Overhaul"],
+    color: "from-green-500 to-emerald-500",
+    route: "/cooler-service",
+    component: AircoolerService,
+  },
+  {
+    icon: <Refrigerator className="w-12 h-12" />,
+    title: "Refrigerator Service",
+    description: "Expert refrigerator repair and maintenance services for all brands and models.",
+    features: ["Cooling Issues", "Compressor Repair", "Door Seal Replacement", "Temperature Control"],
+    color: "from-purple-500 to-pink-500",
+    route: "/fridge-service",
+    component: FridgeService,
+  },
+  {
+    icon: <Zap className="w-12 h-12" />,
+    title: "Washing Machine Service",
+    description: "Professional washing machine repair and maintenance for front load and top load machines.",
+    features: ["Drum Cleaning", "Motor Repair", "Water Inlet Issues", "Spin Problems"],
+    color: "from-orange-500 to-red-500",
+    route: "/washing-service",
+    component: WashingService,
+  },
+  {
+    icon: <Thermometer className="w-12 h-12" />,
+    title: "HVAC Solutions",
+    description: "Comprehensive heating, ventilation and air conditioning solutions for all environments.",
+    features: ["System Design", "Duct Cleaning", "Filter Replacement", "Energy Optimization"],
+    color: "from-indigo-500 to-purple-500",
+    route: "/hvac-service",
+    component: () => <div>HVAC Service</div>,
+  },
+  {
+    icon: <GlassWaterIcon className="w-12 h-12" />,
+    title: "Auro Water Purifier Repair",
+    description: "Professional repair services for all types of home appliances and electrical equipment.",
+    features: ["Water over flow", "Water leakage", "Low water output", "Noise operation"],
+    color: "from-teal-500 to-green-500",
+    route: "/Auro",
+    component: Waterpurifier,
+  },
+]
+
+// Notification Component
+function Notification({ message, type, isVisible, onClose }) {
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        onClose()
+      }, 4000) // Auto close after 4 seconds
+
+      return () => clearTimeout(timer)
+    }
+  }, [isVisible, onClose])
+
+  if (!isVisible) return null
+
+  return (
+    <div className="fixed top-4 right-4 z-[9999] animate-in slide-in-from-top-2 duration-300">
+      <div
+        className={`
+        flex items-center gap-3 px-6 py-4 rounded-lg shadow-lg border backdrop-blur-sm
+        ${
+          type === "success"
+            ? "bg-green-50/95 border-green-200 text-green-800"
+            : "bg-red-50/95 border-red-200 text-red-800"
+        }
+      `}
+      >
+        <div className="flex-shrink-0">
+          {type === "success" ? (
+            <CheckCircle className="w-5 h-5 text-green-600" />
+          ) : (
+            <X className="w-5 h-5 text-red-600" />
+          )}
+        </div>
+        <div className="flex-1">
+          <p className="text-sm font-medium">{message}</p>
+        </div>
+        <button onClick={onClose} className="flex-shrink-0 ml-2 text-gray-400 hover:text-gray-600 transition-colors">
+          <X className="w-4 h-4" />
+        </button>
+      </div>
+    </div>
+  )
+}
 
 export default function HomeApplianceServices() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false)
   const [isBookServiceDropdownOpen, setIsBookServiceDropdownOpen] = useState(false)
   const [isVisible, setIsVisible] = useState({})
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userName, setUserName] = useState("")
+  const [notification, setNotification] = useState({
+    isVisible: false,
+    message: "",
+    type: "success",
+  })
   const navigate = useNavigate()
+
+  // Check authentication status on component mount and when localStorage changes
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      const token = localStorage.getItem("token")
+      const userid = localStorage.getItem("userid")
+      const storedUserName = localStorage.getItem("userName")
+
+      if (token && userid) {
+        setIsLoggedIn(true)
+        setUserName(storedUserName || "User")
+      } else {
+        setIsLoggedIn(false)
+        setUserName("")
+      }
+    }
+
+    checkAuthStatus()
+
+    // Listen for storage changes (in case user logs out from another tab)
+    window.addEventListener("storage", checkAuthStatus)
+
+    return () => {
+      window.removeEventListener("storage", checkAuthStatus)
+    }
+  }, [])
+
+  // Show notification function
+  const showNotification = (message, type = "success") => {
+    setNotification({
+      isVisible: true,
+      message,
+      type,
+    })
+  }
+
+  // Hide notification function
+  const hideNotification = () => {
+    setNotification((prev) => ({
+      ...prev,
+      isVisible: false,
+    }))
+  }
+
+  // Handle logout functionality
+  const handleLogout = () => {
+    // Remove all authentication data from localStorage
+    localStorage.removeItem("token")
+    localStorage.removeItem("userid")
+    localStorage.removeItem("userName")
+    localStorage.removeItem("userEmail")
+
+    // Update component state
+    setIsLoggedIn(false)
+    setUserName("")
+    setIsUserDropdownOpen(false)
+
+    // Show success notification instead of alert
+    showNotification("Successfully logged out! See you again soon.", "success")
+
+    // Stay on home page (already here)
+    navigate("/")
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -137,10 +250,6 @@ export default function HomeApplianceServices() {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [isUserDropdownOpen, isBookServiceDropdownOpen])
-
-
-   
-  
 
   const benefits = [
     {
@@ -194,13 +303,21 @@ export default function HomeApplianceServices() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Notification Component */}
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        isVisible={notification.isVisible}
+        onClose={hideNotification}
+      />
+
       {/* Navigation */}
       <nav className="bg-white/95 backdrop-blur-md shadow-lg fixed w-full z-50 transition-all duration-300 top-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
-              <div >
-                <img src={logo}  className="logo" alt="logo" />
+              <div>
+                <img src={logo || "/placeholder.svg"} className="logo" alt="logo" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 Star Coolers
@@ -221,6 +338,7 @@ export default function HomeApplianceServices() {
               <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
                 Contact
               </a>
+
               {/* Book Service Dropdown */}
               <div className="relative book-service-dropdown">
                 <button
@@ -279,9 +397,10 @@ export default function HomeApplianceServices() {
               <div className="relative user-dropdown">
                 <button
                   onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
-                  className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors p-2 rounded-full hover:bg-gray-100"
+                  className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors p-2 rounded-full hover:bg-gray-100"
                 >
                   <User className="w-6 h-6" />
+                  {isLoggedIn && <span className="text-sm font-medium max-w-24 truncate">{userName}</span>}
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-200 ${isUserDropdownOpen ? "rotate-180" : ""}`}
                   />
@@ -290,35 +409,47 @@ export default function HomeApplianceServices() {
                 {/* Dropdown Menu */}
                 {isUserDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
-                    <Link
-                      to="/Profile"
-                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
-                    >
-                      <User className="w-4 h-4" />
-                      <span>Profile</span>
-                    </Link>
-                    <Link
-                      to="/Login"
-                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
-                    >
-                      <Shield className="w-4 h-4" />
-                      <span>Login</span>
-                    </Link>
-                    <Link
-                      to="/Login"
-                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
-                    >
-                      <BookDownIcon className="w-4 h-4" />
-                      <span>Booked Service</span>
-                    </Link>
-                     <Link
-                      to="/Login"
-                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
-                    >
-                      <BoxIcon className="w-4 h-4" />
-                      <span>Orders</span>
-                    </Link>
-                   
+                    {isLoggedIn ? (
+                      <>
+                        <Link
+                          to="/Profile"
+                          className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                        >
+                          <User className="w-4 h-4" />
+                          <span>Profile</span>
+                        </Link>
+                        <Link
+                          to="/booked-services"
+                          className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                        >
+                          <BookDownIcon className="w-4 h-4" />
+                          <span>Booked Services</span>
+                        </Link>
+                        <Link
+                          to="/orders"
+                          className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                        >
+                          <BoxIcon className="w-4 h-4" />
+                          <span>Orders</span>
+                        </Link>
+                        <hr className="my-2 border-gray-100" />
+                        <button
+                          onClick={handleLogout}
+                          className="w-full text-left px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors flex items-center space-x-2"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          <span>Logout</span>
+                        </button>
+                      </>
+                    ) : (
+                      <Link
+                        to="/Login"
+                        className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                      >
+                        <Shield className="w-4 h-4" />
+                        <span>Login</span>
+                      </Link>
+                    )}
                   </div>
                 )}
               </div>
@@ -338,36 +469,51 @@ export default function HomeApplianceServices() {
                 {/* Mobile Dropdown Menu */}
                 {isUserDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
-                   <Link
-                      to="/Profile"
-                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
-                    >
-                      <User className="w-4 h-4" />
-                      <span>Profile</span>
-                    </Link>
-                    <Link
-                      to="/Login"
-                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
-                    >
-                      <Shield className="w-4 h-4" />
-                      <span>Login</span>
-                    </Link>
-                     <Link
-                      to="/Login"
-                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
-                    >
-                      <BookDownIcon className="w-4 h-4" />
-                      <span>Booked Service</span>
-                    </Link>
-
-                     <Link
-                      to="/Login"
-                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
-                    >
-                      <BoxIcon className="w-4 h-4" />
-                      <span>Orders</span>
-                    </Link>
-                   
+                    {isLoggedIn ? (
+                      <>
+                        <div className="px-4 py-2 border-b border-gray-100">
+                          <p className="text-sm font-medium text-gray-900 truncate">{userName}</p>
+                          <p className="text-xs text-gray-500">Logged in</p>
+                        </div>
+                        <Link
+                          to="/Profile"
+                          className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                        >
+                          <User className="w-4 h-4" />
+                          <span>Profile</span>
+                        </Link>
+                        <Link
+                          to="/booked-services"
+                          className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                        >
+                          <BookDownIcon className="w-4 h-4" />
+                          <span>Booked Services</span>
+                        </Link>
+                        <Link
+                          to="/orders"
+                          className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                        >
+                          <BoxIcon className="w-4 h-4" />
+                          <span>Orders</span>
+                        </Link>
+                        <hr className="my-2 border-gray-100" />
+                        <button
+                          onClick={handleLogout}
+                          className="w-full text-left px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors flex items-center space-x-2"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          <span>Logout</span>
+                        </button>
+                      </>
+                    ) : (
+                      <Link
+                        to="/Login"
+                        className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                      >
+                        <Shield className="w-4 h-4" />
+                        <span>Login</span>
+                      </Link>
+                    )}
                   </div>
                 )}
               </div>
@@ -394,6 +540,7 @@ export default function HomeApplianceServices() {
                 <a href="#contact" className="block text-gray-700 hover:text-blue-600 font-medium">
                   Contact
                 </a>
+
                 {/* Book Service Dropdown for Mobile */}
                 <div className="relative book-service-dropdown">
                   <button
@@ -635,10 +782,11 @@ export default function HomeApplianceServices() {
                   ))}
                 </div>
 
-                 <button className="w-full bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 font-semibold py-3 px-6 rounded-xl hover:from-blue-50 hover:to-indigo-50 hover:text-blue-600 transition-all duration-300 flex items-center justify-center"
-               
-                  onClick={() => navigate(service.route)}>
-                    Learn more 
+                <button
+                  className="w-full bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 font-semibold py-3 px-6 rounded-xl hover:from-blue-50 hover:to-indigo-50 hover:text-blue-600 transition-all duration-300 flex items-center justify-center"
+                  onClick={() => navigate(service.route)}
+                >
+                  Learn more
                   <ChevronRight className="w-4 h-4 ml-1" />
                 </button>
               </div>
@@ -773,8 +921,8 @@ export default function HomeApplianceServices() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div >
-                  <img src={logo} className="logo" alt="logo" />
+                <div>
+                  <img src={logo || "/placeholder.svg"} className="logo" alt="logo" />
                 </div>
                 <span className="text-xl font-bold">Star Coolers</span>
               </div>
