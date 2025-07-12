@@ -4,7 +4,7 @@ import ACServicePage from './Components/services/Acservice';
 import FridgeService from './Components/services/FridgeService';
 import WashingService from './Components/services/WashingService';
 import Auth from './Components/Login/LoginPage'
-
+import Profile from './Components/Profile/Profile';
 import AircoolerService from './Components/services/AircoolerService';
 import Waterpurifier from './Components/services/Waterpurifier';
 import BookingForm from './Components/Booking/BookingForm';
@@ -23,6 +23,8 @@ function App() {
       <Route path="/Auro" element={<Waterpurifier/>}/>
        <Route path="/book" element={<BookingForm />} />
        <Route path="/buy-now" element={<BuyNow/>} />
+       <Route path="/profile" element={<Profile />} />
+
       </Routes>
     </BrowserRouter>
   );

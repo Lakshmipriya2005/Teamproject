@@ -26,7 +26,7 @@ const BuyNow = () => {
 
     const { name, email, phone, address } = formData;
 
-    // Validation: Check if all fields are filled
+    // Validation: Check if all fields are ..
     if (!name || !email || !phone || !address) {
       setMessage("Please fill in all the fields.");
       setMessageType("error");
