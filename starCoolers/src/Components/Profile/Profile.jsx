@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import logo from "../../assets/logo.png"
 import {
   User,
   Mail,
@@ -37,6 +39,12 @@ export default function ProfilePage() {
   const [isSaving, setIsSaving] = useState(false)
   const [isUploadingImage, setIsUploadingImage] = useState(false)
   const fileInputRef = useRef(null)
+  const Navigate = useNavigate()
+  const [notification, setNotification] = useState({
+    isVisible: false,
+    message: "",
+    type: "success",
+  })
 
   // Original profile data from backend
   const [originalProfileData, setOriginalProfileData] = useState({
@@ -184,13 +192,13 @@ export default function ProfilePage() {
 
     // Validate file type
     if (!file.type.startsWith("image/")) {
-      alert("Please select a valid image file")
+      showNotification("Please select a valid image file", "error")
       return
     }
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      alert("Image size should be less than 5MB")
+      showNotification("Image size should be less than 5MB", "error")
       return
     }
 
@@ -216,7 +224,7 @@ export default function ProfilePage() {
           ...prev,
           avatar: result.avatarUrl,
         }))
-        alert("Profile picture updated successfully!")
+        showNotification("Profile picture updated successfully!")
       } else {
         // For demo purposes, create a local URL
         const imageUrl = URL.createObjectURL(file)
@@ -224,11 +232,11 @@ export default function ProfilePage() {
           ...prev,
           avatar: imageUrl,
         }))
-        alert("Profile picture updated successfully! (Demo mode)")
+        showNotification("Profile picture updated successfully! (Demo mode)")
       }
     } catch (error) {
       console.error("Error uploading image:", error)
-      alert("Failed to upload image. Please try again.")
+      showNotification("Failed to upload image. Please try again.", "error")
     } finally {
       setIsUploadingImage(false)
     }
@@ -265,19 +273,34 @@ export default function ProfilePage() {
         setOriginalProfileData(updatedData)
         setProfileData(updatedData)
         setIsEditing(false)
-        alert("Profile updated successfully!")
+        showNotification("Profile updated successfully!")
       } else {
         // For demo purposes, simulate successful update
         setOriginalProfileData(profileData)
         setIsEditing(false)
-        alert("Profile updated successfully! (Demo mode)")
+        showNotification("Profile updated successfully! (Demo mode)")
       }
     } catch (error) {
       console.error("Error updating profile:", error)
-      alert("Failed to update profile. Please try again.")
+      showNotification("Failed to update profile. Please try again.", "error")
     } finally {
       setIsSaving(false)
     }
+  }
+  const showNotification = (message, type = "success") => {
+    setNotification({
+      isVisible: true,
+      message,
+      type,
+    })
+  }
+
+  // Hide notification function
+  const hideNotification = () => {
+    setNotification((prev) => ({
+      ...prev,
+      isVisible: false,
+    }))
   }
 
   // Handle cancel edit
@@ -291,6 +314,10 @@ export default function ProfilePage() {
     })
     setIsEditing(false)
   }
+  const handleLogoClick = () => {
+    // Handle logo click event
+    Navigate("/")
+  }
 
   const stats = [
     { label: "Services Booked", value: "32", icon: <Wrench className="w-5 h-5" />, color: "text-blue-600" },
@@ -299,123 +326,15 @@ export default function ProfilePage() {
     { label: "Reviews Given", value: "28", icon: <Star className="w-5 h-5" />, color: "text-yellow-600" },
   ]
 
-  const recentServices = [
-    {
-      id: 1,
-      service: "AC Deep Cleaning Service",
-      appliance: "Split AC - 1.5 Ton",
-      date: "Dec 18, 2024",
-      status: "Completed",
-      price: "₹2,499",
-      rating: 5,
-      technician: "Rajesh Kumar",
-      technicianPhone: "+91 98765 12345",
-      serviceTime: "2:00 PM - 4:30 PM",
-      nextService: "Mar 18, 2025",
-    },
-    {
-      id: 2,
-      service: "Refrigerator Cooling Issue Repair",
-      appliance: "Samsung Double Door",
-      date: "Nov 25, 2024",
-      status: "Completed",
-      price: "₹1,899",
-      rating: 4,
-      technician: "Amit Patel",
-      technicianPhone: "+91 98765 67890",
-      serviceTime: "10:00 AM - 12:00 PM",
-      warranty: "3 months",
-    },
-    {
-      id: 3,
-      service: "Washing Machine Installation",
-      appliance: "LG Front Load 7kg",
-      date: "Oct 15, 2024",
-      status: "Completed",
-      price: "₹599",
-      rating: 5,
-      technician: "Suresh Singh",
-      technicianPhone: "+91 98765 11111",
-      serviceTime: "11:00 AM - 1:00 PM",
-      warranty: "1 year installation warranty",
-    },
-  ]
+  
 
-  const favoriteServices = [
-    {
-      name: "AC Regular Service",
-      bookings: 12,
-      lastBooked: "Dec 18, 2024",
-      nextDue: "Mar 18, 2025",
-      savings: "₹2,400",
-    },
-    {
-      name: "Refrigerator Repair",
-      bookings: 6,
-      lastBooked: "Nov 25, 2024",
-      avgRating: 4.8,
-      savings: "₹1,800",
-    },
-    {
-      name: "Washing Machine Service",
-      bookings: 8,
-      lastBooked: "Sep 10, 2024",
-      nextDue: "Dec 10, 2024",
-      savings: "₹1,600",
-    },
-  ]
-
-  const achievements = [
-    {
-      title: "Loyal Customer",
-      description: "Booked 30+ services",
-      icon: "🏆",
-      earned: true,
-      earnedDate: "Nov 2024",
-    },
-    {
-      title: "Review Champion",
-      description: "Left 25+ helpful reviews",
-      icon: "⭐",
-      earned: true,
-      earnedDate: "Oct 2024",
-    },
-    {
-      title: "Early Adopter",
-      description: "Member for 2+ years",
-      icon: "🎯",
-      earned: true,
-      earnedDate: "Mar 2024",
-    },
-    {
-      title: "Eco Saver",
-      description: "Saved ₹15,000+ through services",
-      icon: "💚",
-      earned: true,
-      earnedDate: "Dec 2024",
-    },
-    {
-      title: "Service Scheduler",
-      description: "Schedule 5 services in advance",
-      icon: "📅",
-      earned: false,
-      progress: "3/5",
-    },
-    {
-      title: "Referral Master",
-      description: "Refer 10 friends",
-      icon: "🤝",
-      earned: false,
-      progress: "2/10",
-    },
-  ]
-
+  
   const menuItems = [
     { id: "overview", label: "Overview", icon: <Home className="w-5 h-5" /> },
-    { id: "services", label: "Service History", icon: <History className="w-5 h-5" /> },
-    { id: "appliances", label: "My Appliances", icon: <Settings className="w-5 h-5" /> },
-    { id: "favorites", label: "Favorites", icon: <Heart className="w-5 h-5" /> },
-    { id: "achievements", label: "Rewards", icon: <Award className="w-5 h-5" /> },
+    // { id: "services", label: "Service History", icon: <History className="w-5 h-5" /> },
+    // { id: "appliances", label: "My Appliances", icon: <Settings className="w-5 h-5" /> },
+    // { id: "favorites", label: "Favorites", icon: <Heart className="w-5 h-5" /> },
+    // { id: "achievements", label: "Rewards", icon: <Award className="w-5 h-5" /> },
     { id: "settings", label: "Account Settings", icon: <User className="w-5 h-5" /> },
   ]
 
@@ -465,22 +384,40 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Notification */}
+      {notification.isVisible && (
+        <div className="fixed top-4 right-4 z-50">
+          <div
+            className={`px-6 py-4 rounded-lg shadow-lg ${
+              notification.type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+            }`}
+          >
+            <div className="flex items-center justify-between">
+              <span>{notification.message}</span>
+              <button onClick={hideNotification} className="ml-4 text-white hover:text-gray-200">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-900">My Profile</h1>
-            <div className="flex items-center space-x-3">
-              <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-                <Share2 className="w-5 h-5" />
-              </button>
-              <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-                <Download className="w-5 h-5" />
-              </button>
-              <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-                <MoreVertical className="w-5 h-5" />
-              </button>
+            <div>
+              <img
+                src={logo || "/placeholder.svg"}
+                className="logo"
+                alt="logo"
+                onClick={handleLogoClick}
+              />
+              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                Star Coolers
+              </span>
             </div>
+           
           </div>
         </div>
       </div>
@@ -756,35 +693,11 @@ export default function ProfilePage() {
                 </div>
 
                 {/* Recent Activity */}
-                <div className="bg-white rounded-2xl shadow-lg p-8">
-                  <h3 className="text-xl font-bold text-gray-900 mb-6">Recent Services</h3>
-                  <div className="space-y-4">
-                    {recentServices.map((service) => (
-                      <div
-                        key={service.id}
-                        className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
-                      >
-                        <div className="flex items-center space-x-4">
-                          <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <Wrench className="w-6 h-6 text-blue-600" />
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-gray-900">{service.service}</h4>
-                            <p className="text-sm text-gray-500">by {service.technician}</p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="font-semibold text-gray-900">{service.price}</div>
-                          <div className="text-sm text-gray-500">{service.date}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+               
               </div>
             )}
 
-            {activeTab === "services" && (
+            {/* {activeTab === "services" && (
               <div className="bg-white rounded-2xl shadow-lg p-8">
                 <h3 className="text-xl font-bold text-gray-900 mb-6">Service History</h3>
                 <div className="space-y-6">
@@ -937,7 +850,7 @@ export default function ProfilePage() {
                   ))}
                 </div>
               </div>
-            )}
+            )} */}
 
             {activeTab === "settings" && (
               <div className="space-y-6">

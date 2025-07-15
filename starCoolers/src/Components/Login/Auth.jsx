@@ -3,6 +3,7 @@
 import { useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import logo from "../../assets/logo.png" // Adjust the path as necessary>
 
 export default function AuthPages() {
   const [activeTab, setActiveTab] = useState("login")
@@ -48,23 +49,19 @@ export default function AuthPages() {
           withCredentials: true, // if backend uses cookies
         },
       )
-
       // Success
       setSuccessMessage("Login successful! Redirecting...")
-
       if (response.data.token) {
         localStorage.setItem("token", response.data.token)
       }
-
       console.log("Login successful:", response.data)
       localStorage.setItem("userid", JSON.stringify(response.data.id))
       localStorage.setItem("userName", response.data.username)
       localStorage.setItem("userEmail", response.data.email)
-
       setTimeout(() => {
         navigate("/") // Redirect to home page
         console.log("Redirected to home")
-      }, 2000)
+      }, 500)
     } catch (err) {
       console.error("Login error:", err)
       if (err.response) {
@@ -78,7 +75,6 @@ export default function AuthPages() {
       setIsLoading(false)
     }
   }
-
   const handleSignupSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
@@ -114,7 +110,6 @@ export default function AuthPages() {
           withCredentials: true,
         },
       )
-
       // Success
       setSuccessMessage("Account created successfully! Please check your email for verification.")
       setSignupData({
@@ -126,9 +121,7 @@ export default function AuthPages() {
         confirmPassword: "",
         agreeTerms: false,
       })
-
       console.log("Signup successful:", response.data)
-
       setTimeout(() => {
         setActiveTab("login")
         setSuccessMessage("")
@@ -153,15 +146,13 @@ export default function AuthPages() {
         {/* Logo and Brand */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
-            <div className="bg-blue-600 p-3 rounded-full">
-              <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                />
-              </svg>
+            <div className="rounded-full">
+               <img
+                src={logo || "/placeholder.svg"}
+                className="logo"
+                alt="logo"
+                
+              />
             </div>
           </div>
           <h1 className="text-3xl font-bold text-gray-900">StarCoolers</h1>
@@ -217,8 +208,7 @@ export default function AuthPages() {
                 <h2 className="text-2xl font-bold text-gray-900">Welcome Back</h2>
                 <p className="text-gray-600 mt-1">Sign in to access your service dashboard</p>
               </div>
-
-              <div className="space-y-4">
+              <form onSubmit={handleLoginSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="login-email" className="block text-sm font-medium text-gray-700 mb-1">
                     Name
@@ -237,7 +227,6 @@ export default function AuthPages() {
                     />
                   </div>
                 </div>
-
                 <div>
                   <label htmlFor="login-password" className="block text-sm font-medium text-gray-700 mb-1">
                     Password
@@ -256,7 +245,6 @@ export default function AuthPages() {
                     />
                   </div>
                 </div>
-
                 <div className="flex items-center justify-between">
                   <label className="flex items-center space-x-2 text-sm">
                     <input
@@ -272,10 +260,8 @@ export default function AuthPages() {
                     Forgot password?
                   </a>
                 </div>
-
                 <button
-                  type="button"
-                  onClick={handleLoginSubmit}
+                  type="submit"
                   disabled={isLoading}
                   className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                 >
@@ -307,7 +293,7 @@ export default function AuthPages() {
                     "Sign In"
                   )}
                 </button>
-              </div>
+              </form>
             </div>
           )}
 
@@ -318,8 +304,7 @@ export default function AuthPages() {
                 <h2 className="text-2xl font-bold text-gray-900">Create Account</h2>
                 <p className="text-gray-600 mt-1">Join StarCoolers for reliable appliance maintenance</p>
               </div>
-
-              <div className="space-y-4">
+              <form onSubmit={handleSignupSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="signup-name" className="block text-sm font-medium text-gray-700 mb-1">
                     User Name
@@ -338,7 +323,6 @@ export default function AuthPages() {
                     />
                   </div>
                 </div>
-
                 <div>
                   <label htmlFor="signup-email" className="block text-sm font-medium text-gray-700 mb-1">
                     Email
@@ -357,7 +341,6 @@ export default function AuthPages() {
                     />
                   </div>
                 </div>
-
                 <div>
                   <label htmlFor="signup-phone" className="block text-sm font-medium text-gray-700 mb-1">
                     Phone Number
@@ -376,7 +359,6 @@ export default function AuthPages() {
                     />
                   </div>
                 </div>
-
                 <div>
                   <label htmlFor="signup-password" className="block text-sm font-medium text-gray-700 mb-1">
                     Password
@@ -395,7 +377,6 @@ export default function AuthPages() {
                     />
                   </div>
                 </div>
-
                 <div>
                   <label htmlFor="signup-confirm-password" className="block text-sm font-medium text-gray-700 mb-1">
                     Confirm Password
@@ -414,7 +395,6 @@ export default function AuthPages() {
                     />
                   </div>
                 </div>
-
                 <div className="flex items-start space-x-2">
                   <input
                     type="checkbox"
@@ -435,10 +415,8 @@ export default function AuthPages() {
                     </a>
                   </label>
                 </div>
-
                 <button
-                  type="button"
-                  onClick={handleSignupSubmit}
+                  type="submit"
                   disabled={isLoading}
                   className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                 >
@@ -470,7 +448,7 @@ export default function AuthPages() {
                     "Create Account"
                   )}
                 </button>
-              </div>
+              </form>
             </div>
           )}
         </div>
