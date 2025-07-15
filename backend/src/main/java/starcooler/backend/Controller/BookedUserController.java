@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import starcooler.backend.Dtos.BookedUserDtos;
+import starcooler.backend.Dtos.userBoughtDtos;
 import starcooler.backend.Service.BookedUserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,16 @@ public class BookedUserController {
            
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
+    }
+    @PostMapping("/userbought/{id}")
+    public ResponseEntity<String> userBought(@RequestBody userBoughtDtos dtos, @PathVariable Long id) {
+        try {
+            bookedUserService.productBought(dtos, id);
+            return ResponseEntity.ok("Order Placed successfully!");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+
     }
     
 }
