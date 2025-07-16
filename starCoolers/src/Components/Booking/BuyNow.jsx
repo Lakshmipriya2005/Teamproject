@@ -1,15 +1,22 @@
 import { useState } from "react";
+import axios from "axios"
 import { ShoppingCart } from 'lucide-react'
+import { useLocation } from "react-router-dom";
 
 const BuyNow = () => {
-  // Mock location state for demonstration
-  const serviceName = "Aquaguard Water Purifier 7L";
-  const price = "₹18,000";
+  const location = useLocation();
+  const { serviceType, serviceName, price } = location.state || {
+    serviceType: "Water Purifier",
+    serviceName: "Aquaguard Water Purifier 7L",
+    price: "₹18,000 ",
+  };
+
+
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
     address: "",
   });
 
@@ -21,13 +28,13 @@ const BuyNow = () => {
     setMessage(""); // Clear message while typing
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
-    const { name, email, phone, address } = formData;
+    const { name, email, phoneNumber, address } = formData;
 
     // Validation: Check if all fields are ..
-    if (!name || !email || !phone || !address) {
+    if (!name || !email || !phoneNumber || !address) {
       setMessage("Please fill in all the fields.");
       setMessageType("error");
       return;
@@ -36,15 +43,28 @@ const BuyNow = () => {
     const finalData = {
       ...formData,
       product: serviceName,
-      amount: price,
+      price: price,
+    productType: serviceType,
+
     };
+    const userId= localStorage.getItem("userid");
+    const token = localStorage.getItem("token");
+    console.log("User ID:", userId);
+    const response = await fetch("http://localhost:8080/booked/userbought/" + userId, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(finalData),
+    });
 
     console.log("Purchase Details:", finalData);
     setMessage("Order placed successfully!");
     setMessageType("success");
 
     // Optionally reset the form after submission
-    setFormData({ name: "", email: "", phone: "", address: "" });
+    setFormData({ name: "", email: "", phoneNumber: "", address: "" });
   };
 
   return (
@@ -93,8 +113,8 @@ const BuyNow = () => {
           <label className="block mb-1 font-semibold">Phone</label>
           <input
             type="tel"
-            name="phone"
-            value={formData.phone}
+            name="phoneNumber"
+            value={formData.phoneNumber}
             onChange={handleChange}
             required
             className="w-full border px-3 py-2 rounded-md"

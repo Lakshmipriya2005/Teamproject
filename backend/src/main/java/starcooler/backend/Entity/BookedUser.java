@@ -25,7 +25,7 @@ public class BookedUser {
     private String address;
     private String service;
     private String serviceType;
-    private Long price;
+    private double price;
     private String bookingDate;
     private String bookingTime;
   

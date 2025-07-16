@@ -17,7 +17,7 @@ public class BookedUserDtos {
     private String address;
     private String service;
     private String serviceType;
-    private long price;
+    private double price;
     private String bookingDate;
     private String bookingTime;
   

@@ -55,7 +55,7 @@ export default function AuthPages() {
         localStorage.setItem("token", response.data.token)
       }
       console.log("Login successful:", response.data)
-      localStorage.setItem("userid", JSON.stringify(response.data.id))
+      localStorage.setItem("userid", response.data.id)
       localStorage.setItem("userName", response.data.username)
       localStorage.setItem("userEmail", response.data.email)
       setTimeout(() => {

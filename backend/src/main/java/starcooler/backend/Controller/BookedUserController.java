@@ -32,7 +32,9 @@ public class BookedUserController {
     }
     @PostMapping("/userbought/{id}")
     public ResponseEntity<String> userBought(@RequestBody userBoughtDtos dtos, @PathVariable Long id) {
+        
         try {
+           
             bookedUserService.productBought(dtos, id);
             return ResponseEntity.ok("Order Placed successfully!");
         } catch (RuntimeException e) {

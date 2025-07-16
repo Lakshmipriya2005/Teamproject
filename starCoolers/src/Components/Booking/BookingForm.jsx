@@ -1,44 +1,69 @@
 import { useState } from "react";
 import { Book } from 'lucide-react'
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const BookingForm = () => {
-  // Mock location state for demonstration
-  const serviceName = "Water Purifier Repair";
-  const price = "₹299";
-  const serviceType = "repair";
+  const location = useLocation();
+  const { serviceType,serviceName, price } = location.state || {
+    serviceType: "Water Purifier",
+    serviceName: "Water Purifier Repair",
+    price: "₹299",
+  };
+ 
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
     address: "",
   });
 
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(null);
+
+  const [message, setMessage] = useState(""); // For success or error messages
+  const [messageType, setMessageType] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setMessage(""); // Clear message while typing
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { name, email, phoneNumber, address } = formData;
+
+    // Validation: Check if all fields are ..
+    if (!name || !email || !phoneNumber || !address) {
+      setMessage("Please fill in all the fields.");
+      setMessageType("error");
+      return;
+    }
 
     const bookingData = {
       ...formData,
       service: serviceName,
-      amount: price,
-      servicetype: serviceType,
+      price: price.slice(1),
+      serviceType: serviceType,
     };
 
     try {
       // Simulate API call
-      console.log("Booking submitted:", bookingData);
-      setSubmitted(true);
-      setError(null);
+      const userId = localStorage.getItem("userid");
+      const token = localStorage.getItem("token");
+     const response = await fetch("http://localhost:8080/booked/bookeduser/" + userId, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(bookingData),
+    });
+    setMessage("Service booked successfully!");
+    setMessageType("success");
     } catch (err) {
       console.error("Error submitting booking:", err);
-      setError("Something went wrong while submitting the form.");
+      setMessage("Something went wrong while submitting the form.");
+      setMessageType("error");
     }
   };
 
@@ -49,7 +74,7 @@ const BookingForm = () => {
         <h2 className="text-2xl font-bold text-center">Book Your Service</h2>
       </div>
 
-      {submitted ? (
+      {message ? (
         <div className="text-green-600 text-center font-semibold">
           ✅ Booking Submitted Successfully!
         </div>
@@ -83,8 +108,8 @@ const BookingForm = () => {
             <label className="block mb-1 font-semibold">Phone</label>
             <input
               type="tel"
-              name="phone"
-              value={formData.phone}
+              name="phoneNumber"
+              value={formData.phoneNumber}
               onChange={handleChange}
               required
               className="w-full border px-3 py-2 rounded-md"
@@ -122,7 +147,8 @@ const BookingForm = () => {
             />
           </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {messageType === "error" && <p className="text-red-500 text-sm">{message}</p>}
+          {messageType === "success" && <p className="text-green-500 text-sm">{message}</p>}
 
           <button
             type="button"

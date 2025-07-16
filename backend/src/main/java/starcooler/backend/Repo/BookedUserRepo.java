@@ -6,9 +6,4 @@ import starcooler.backend.Entity.BookedUser;
 
 
 public interface BookedUserRepo extends JpaRepository<BookedUser, Integer> {
-
-   
-
-
-    
 } 
